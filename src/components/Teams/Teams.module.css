@@ -1,0 +1,11 @@
+.container {
+  display: grid;
+  border-radius: 10px;
+  grid-template-columns: 1fr auto 1fr;
+  padding: 48px 0;
+  position: relative;
+  text-shadow: 2px 2px 0px #000;
+  max-width: 1200px;
+  margin: 24px auto;
+  width: 100%;
+}

@@ -1,0 +1,24 @@
+:root {
+  --slate-1: #18181a;
+  --slate-2: #1b1b1f;
+  --slate-3: #27282d;
+  --slate-4: #2e3035;
+  --slate-5: #35373c;
+  --slate-6: #3c3f44;
+  --slate-7: #464b50;
+  --slate-8: #5a6165;
+  --slate-9: #696e77;
+  --slate-10: #7d828a;
+  --slate-11: #adb1b8;
+  --slate-12: #edeef0;
+  --font-family: 'Noto Sans', sans-serif;
+}
+
+html, body {
+  background-color: var(--slate-1);
+  color: var(--slate-12);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-family);
+}

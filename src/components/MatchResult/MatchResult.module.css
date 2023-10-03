@@ -1,0 +1,23 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+}
+
+.result {
+  align-items: center;
+  display: flex;
+  font-size: 36px;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.result * {
+  margin: 0;
+}
+
+.maps {
+  display: flex;
+}
