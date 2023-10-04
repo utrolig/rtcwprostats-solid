@@ -1,16 +1,16 @@
 import { createMemo } from "solid-js";
 import { GroupsResponse } from "~/api/types";
 import { getMaps, getMatchResult, groupsResponseToTeams } from "~/utils/teams";
-import styles from "./Teams.module.css";
-import { Team } from "../Team/Team";
-import { MatchResult } from "../MatchResult/MatchResult";
-import { Maps } from "../Maps/Maps";
+import styles from "./Header.module.css";
+import { Team } from "./Team/Team";
+import { MatchResult } from "./MatchResult/MatchResult";
+import { Maps } from "./Maps/Maps";
 
-export type TeamsProps = {
+export type HeaderProps = {
   data: GroupsResponse;
 };
 
-export default function Teams(props: TeamsProps) {
+export default function Header(props: HeaderProps) {
   const formattedData = createMemo(() => {
     const teams = groupsResponseToTeams(props.data);
     const result = getMatchResult(props.data.match_summary);

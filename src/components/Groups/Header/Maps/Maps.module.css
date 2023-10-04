@@ -4,13 +4,19 @@
   inset: 0;
   overflow: hidden;
   z-index: 2;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 
-.firstMap, .secondMap {
+@media only screen and (min-width: 1248px) {
+  .container {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}
+
+.firstMap,
+.secondMap {
   position: absolute;
-  width: 60%; /* Set the width to 100% to ensure they fill the container */
+  width: 66%; /* Set the width to 100% to ensure they fill the container */
   height: 100%; /* Set the height to 100% to ensure they fill the container */
   top: 0;
   object-fit: cover;
@@ -22,7 +28,7 @@
 }
 
 .overlay {
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.65);
   position: absolute;
   inset: 0;
   z-index: 3;

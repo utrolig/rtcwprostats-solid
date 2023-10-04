@@ -1,5 +1,6 @@
 import { Component, createMemo } from "solid-js";
 import { Faction, Team } from "~/api/types";
+import logoSrc from "~/assets/rtcw-pro-logo.svg";
 import styles from "./MatchResult.module.css";
 
 type MatchResultProps = {
@@ -9,6 +10,14 @@ type MatchResultProps = {
 };
 
 export const MatchResult: Component<MatchResultProps> = (props) => {
+  const isWinner = (faction: Faction) => {
+    if (props.factions.TeamA === faction) {
+      return props.result.TeamA > props.result.TeamB;
+    }
+
+    return props.result.TeamB > props.result.TeamA;
+  };
+
   const actualResult = createMemo(() => {
     const maps = [props.maps[0], props.maps[1]];
     if (props.factions.TeamA === "Allied") {
@@ -27,8 +36,11 @@ export const MatchResult: Component<MatchResultProps> = (props) => {
   });
   return (
     <div class={styles.container}>
+      <img class={styles.logo} src={logoSrc} />
       <div class={styles.result}>
-        <p>{actualResult().Allied}</p>
+        <p classList={{ [styles.winner]: isWinner("Allied") }}>
+          {actualResult().Allied}
+        </p>
         <span>:</span>
         <p>{actualResult().Axis}</p>
       </div>

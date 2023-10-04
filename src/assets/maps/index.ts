@@ -1,14 +1,14 @@
 import mp_beach from "./mp_beach.png";
 import mp_ice from "./mp_ice.png";
 import mp_sub from "./mp_sub.png";
-import mp_frostbite from "./te_frostbite.png";
+import te_frostbite from "./te_frostbite.png";
 import te_ufo from "./te_ufo.png";
 
 const mapRecord: Record<string, string> = {
   mp_beach,
   mp_ice,
   mp_sub,
-  mp_frostbite,
+  te_frostbite,
   te_ufo,
 };
 
