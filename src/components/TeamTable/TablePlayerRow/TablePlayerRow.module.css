@@ -1,0 +1,41 @@
+.row {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  padding: 0 12px;
+}
+
+.row:nth-child(even) {
+  background-color: var(--slate-1);
+}
+
+.cell {
+  display: flex;
+  padding: 6px 0;
+}
+
+.cell.name {
+  flex-direction: column;
+  width: 140px;
+}
+
+.cell.name h4 {
+  font-size: 14px;
+  margin: 0;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.cell.name p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.cell.name .rank {
+  display: flex;
+  gap: 4px;
+}
+
+.cell.name .rank span {
+  color: var(--slate-8);
+  font-size: 12px;
+}

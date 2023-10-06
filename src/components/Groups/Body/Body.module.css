@@ -3,6 +3,7 @@
   border-top: 2px solid var(--primary);
   display: flex;
   flex-direction: column;
+  padding-bottom: 24px;
   width: 100%;
 }
 
@@ -10,6 +11,8 @@
   display: flex;
   list-style: none;
   gap: 48px;
+  margin: 0;
+  padding: 24px 48px;
 }
 
 .tabs li.active h6 {

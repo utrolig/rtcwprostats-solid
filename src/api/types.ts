@@ -97,9 +97,11 @@ export type MatchSummary = {
   results: Results;
 };
 
+export type Elos = Record<Guid, EloEntry>;
+
 export type GroupsResponse = {
   statsall: PlayerStatsObject[];
-  elos: Record<Guid, EloEntry>;
+  elos: Elos;
   match_id: string;
   type: string;
   match_summary: MatchSummary;

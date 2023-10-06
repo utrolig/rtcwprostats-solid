@@ -114,3 +114,14 @@ export const getMaps = (matchSummary: MatchSummary) => {
   const maps = Object.values(matchSummary.results).map((s) => s.map);
   return maps.filter((value, index, array) => array.indexOf(value) === index);
 };
+
+export const getTeamFromFaction = (
+  input: Record<Team, Faction>,
+  faction: Faction
+) => {
+  if (input.TeamA === faction) {
+    return "TeamA";
+  }
+
+  return "TeamB";
+};
