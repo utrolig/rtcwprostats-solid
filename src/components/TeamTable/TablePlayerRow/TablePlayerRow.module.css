@@ -3,6 +3,7 @@
   display: flex;
   gap: 24px;
   padding: 0 12px;
+  user-select: none;
 }
 
 .row:nth-child(odd) {
@@ -25,8 +26,8 @@
 
 .cell.name {
   align-items: center;
+  flex: 1;
   gap: 12px;
-  width: 120px;
 }
 
 .nameContainer {
@@ -94,17 +95,17 @@
 
 .cell.damageDone {
   justify-content: flex-end;
-  width: 80px;
+  width: 100px;
 }
 
 .cell.damageReceived {
   justify-content: flex-end;
-  width: 90px;
+  width: 110px;
 }
 
 .cell.revives {
   justify-content: flex-end;
-  width: 40px;
+  width: 60px;
 }
 
 .cell.gibs {
