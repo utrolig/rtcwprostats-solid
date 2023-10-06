@@ -13,19 +13,32 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
     return props.playerElos[props.player.id]?.[1];
   };
 
+  const getKdr = () => {
+    return (
+      props.player.categories.kills / props.player.categories.deaths
+    ).toFixed(2);
+  };
+
   return (
     <div class={styles.row}>
       <div classList={{ [styles.cell]: true, [styles.name]: true }}>
         <h4>{props.player.alias}</h4>
         <div class={styles.rank}>
-          <span>{getElo()}</span>
           <span style={{ color: rankColors[eloToRank(getElo())] }}>
-            {eloToRank(getElo())}
+            {getElo()}
           </span>
+          <span>{eloToRank(getElo())}</span>
         </div>
       </div>
-      <div class={styles.cell}>{props.player.categories.kills}</div>
-      <div class={styles.cell}>{props.player.categories.deaths}</div>
+      <div classList={{ [styles.cell]: true, [styles.kdr]: true }}>
+        {getKdr()}
+      </div>
+      <div classList={{ [styles.cell]: true, [styles.deaths]: true }}>
+        {props.player.categories.kills}
+      </div>
+      <div classList={{ [styles.cell]: true, [styles.deaths]: true }}>
+        {props.player.categories.deaths}
+      </div>
     </div>
   );
 };

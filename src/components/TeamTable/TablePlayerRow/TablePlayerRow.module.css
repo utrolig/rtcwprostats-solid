@@ -5,17 +5,22 @@
   padding: 0 12px;
 }
 
+.row:nth-child(odd) {
+  background-color: var(--slate-2);
+}
+
 .row:nth-child(even) {
   background-color: var(--slate-1);
 }
 
 .cell {
   display: flex;
-  padding: 6px 0;
+  padding: 12px 0;
 }
 
 .cell.name {
   flex-direction: column;
+  gap: 4px;
   width: 140px;
 }
 
@@ -26,7 +31,7 @@
 }
 
 .cell.name p {
-  font-size: 12px;
+  font-size: 10px;
   margin: 0;
 }
 
@@ -37,5 +42,27 @@
 
 .cell.name .rank span {
   color: var(--slate-8);
-  font-size: 12px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.header .cell {
+  font-size: 11px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.cell.kdr {
+  justify-content: flex-end;
+  width: 60px;
+}
+
+.cell.kills {
+  justify-content: flex-end;
+  width: 60px;
+}
+
+.cell.deaths {
+  justify-content: flex-end;
+  width: 60px;
 }

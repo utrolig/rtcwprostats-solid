@@ -6,6 +6,7 @@ import { TablePlayerRow } from "./TablePlayerRow/TablePlayerRow";
 import { getTeamFromFaction, groupsResponseToTeams } from "~/utils/teams";
 import { getPlayersFromTeam } from "~/utils/players";
 import { For, createSignal } from "solid-js";
+import { TablePlayerHeaderRow } from "./TablePlayerRow/TablePlayerHeaderRow";
 
 type TeamTableProps = {
   groupsData: GroupsResponse;
@@ -43,6 +44,7 @@ export const TeamTable = (props: TeamTableProps) => {
         <p>{toReadableFaction(props.faction)}</p>
       </div>
       <div class={styles.body}>
+        <TablePlayerHeaderRow />
         <For each={getPlayers()}>
           {(player) => (
             <TablePlayerRow
