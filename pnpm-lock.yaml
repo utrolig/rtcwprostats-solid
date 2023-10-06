@@ -19,7 +19,7 @@ dependencies:
     version: 1.7.11
   solid-start:
     specifier: ^0.3.5
-    version: 0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.5)(vite@4.4.9)
+    version: 0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-deno@0.3.6)(solid-start-node@0.3.5)(vite@4.4.9)
   url-join:
     specifier: ^5.0.0
     version: 5.0.0
@@ -34,6 +34,9 @@ devDependencies:
   postcss:
     specifier: ^8.4.28
     version: 8.4.29
+  solid-start-deno:
+    specifier: ^0.3.6
+    version: 0.3.6(solid-start@0.3.5)(vite@4.4.9)
   solid-start-node:
     specifier: ^0.3.5
     version: 0.3.5(solid-start@0.3.5)(vite@4.4.9)
@@ -2988,6 +2991,20 @@ packages:
       '@babel/types': 7.22.15
       solid-js: 1.7.11
 
+  /solid-start-deno@0.3.6(solid-start@0.3.5)(vite@4.4.9):
+    resolution: {integrity: sha512-jh3Nt51t8iTlX3VF6soT4OGjUxZK2C22Tj0FgDaT08UitDcgdWUXoLGfKAxzAX7qlRLw+PUeCRCdjJ/STNKXkg==}
+    peerDependencies:
+      solid-start: '*'
+      vite: '*'
+    dependencies:
+      '@rollup/plugin-commonjs': 24.1.0(rollup@3.28.1)
+      '@rollup/plugin-json': 6.0.0(rollup@3.28.1)
+      '@rollup/plugin-node-resolve': 15.2.1(rollup@3.28.1)
+      rollup: 3.28.1
+      solid-start: 0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-deno@0.3.6)(solid-start-node@0.3.5)(vite@4.4.9)
+      terser: 5.19.4
+      vite: 4.4.9(@types/node@18.17.14)
+
   /solid-start-node@0.3.5(solid-start@0.3.5)(vite@4.4.9):
     resolution: {integrity: sha512-1nvPnxbUuMfhJiILBPln7g+EJUJYz9KRCZS096XVWDz7/pX6PhBzcIxWEZdaCfPdLGWbY97oib/jdKyPLoSaBQ==}
     peerDependencies:
@@ -3001,13 +3018,13 @@ packages:
       polka: 1.0.0-next.22
       rollup: 3.28.1
       sirv: 2.0.3
-      solid-start: 0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.5)(vite@4.4.9)
+      solid-start: 0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-deno@0.3.6)(solid-start-node@0.3.5)(vite@4.4.9)
       terser: 5.19.4
       vite: 4.4.9(@types/node@18.17.14)
     transitivePeerDependencies:
       - supports-color
 
-  /solid-start@0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-node@0.3.5)(vite@4.4.9):
+  /solid-start@0.3.5(@solidjs/meta@0.28.6)(@solidjs/router@0.8.3)(solid-js@1.7.11)(solid-start-deno@0.3.6)(solid-start-node@0.3.5)(vite@4.4.9):
     resolution: {integrity: sha512-6w7OMv7MkiwvKC2XGw7UuVcvo6jzXt7FG5sRS56AIjnfCl3lP3ERU2IK68FEDmft8ROgYsijD3oHjeNJ/3/4CA==}
     hasBin: true
     peerDependencies:
@@ -3072,6 +3089,7 @@ packages:
       set-cookie-parser: 2.6.0
       sirv: 2.0.3
       solid-js: 1.7.11
+      solid-start-deno: 0.3.6(solid-start@0.3.5)(vite@4.4.9)
       solid-start-node: 0.3.5(solid-start@0.3.5)(vite@4.4.9)
       terser: 5.19.4
       undici: 5.23.0

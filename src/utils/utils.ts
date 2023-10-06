@@ -2,17 +2,17 @@ import { Elos, PlayerStats } from "~/api/types";
 import { PlayerStatsWithClass } from "./teams";
 
 export const TableRowSortKey = {
-  Name: "name",
-  KDR: "kdr",
-  Kills: "kills",
-  Deaths: "deaths",
+  Accuracy: "accuracy",
   Add: "add",
   DamageDone: "damageDone",
   DamageReceived: "damageReceived",
-  Revives: "revives",
+  Deaths: "deaths",
   Gibs: "gibs",
   Headshots: "headshots",
-  Accuracy: "accuracy",
+  Kdr: "kdr",
+  Kills: "kills",
+  Name: "name",
+  Revives: "revives",
 } as const;
 
 export type TableRowSortKey =

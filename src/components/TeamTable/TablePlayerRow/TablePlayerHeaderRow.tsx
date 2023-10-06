@@ -22,17 +22,19 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
         />
         <span>Name</span>
       </div>
+
       <div
-        onClick={() => props.onSortClicked(TableRowSortKey.KDR)}
+        onClick={() => props.onSortClicked(TableRowSortKey.Kdr)}
         classList={{ [styles.cell]: true, [styles.kdr]: true }}
       >
         <SortIcon
           activeSortKey={props.sortKey}
           sortDir={props.sortDir}
-          sortKey={TableRowSortKey.KDR}
+          sortKey={TableRowSortKey.Kdr}
         />
         <span>KDR</span>
       </div>
+
       <div
         onClick={() => props.onSortClicked(TableRowSortKey.Kills)}
         classList={{ [styles.cell]: true, [styles.kills]: true }}
@@ -44,6 +46,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
         />
         <span>Kills</span>
       </div>
+
       <div
         onClick={() => props.onSortClicked(TableRowSortKey.Deaths)}
         classList={{ [styles.cell]: true, [styles.deaths]: true }}
@@ -55,6 +58,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
         />
         <span>Deaths</span>
       </div>
+
       <div
         onClick={() => props.onSortClicked(TableRowSortKey.Add)}
         classList={{
@@ -70,58 +74,100 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
         />
         <span>ADD</span>
       </div>
+
       <div
         classList={{
           [styles.cell]: true,
           [styles.number]: true,
           [styles.damageDone]: true,
         }}
+        onClick={() => props.onSortClicked(TableRowSortKey.DamageDone)}
       >
+        <SortIcon
+          activeSortKey={props.sortKey}
+          sortDir={props.sortDir}
+          sortKey={TableRowSortKey.DamageDone}
+        />
         <span>Damage done</span>
       </div>
+
       <div
         classList={{
           [styles.cell]: true,
           [styles.number]: true,
           [styles.damageReceived]: true,
         }}
+        onClick={() => props.onSortClicked(TableRowSortKey.DamageReceived)}
       >
+        <SortIcon
+          activeSortKey={props.sortKey}
+          sortDir={props.sortDir}
+          sortKey={TableRowSortKey.DamageReceived}
+        />
         <span>Damage received</span>
       </div>
+
       <div
         classList={{
           [styles.cell]: true,
           [styles.number]: true,
           [styles.revives]: true,
         }}
+        onClick={() => props.onSortClicked(TableRowSortKey.Revives)}
       >
+        <SortIcon
+          activeSortKey={props.sortKey}
+          sortDir={props.sortDir}
+          sortKey={TableRowSortKey.Revives}
+        />
         <span>Revives</span>
       </div>
+
       <div
         classList={{
           [styles.cell]: true,
           [styles.number]: true,
           [styles.gibs]: true,
         }}
+        onClick={() => props.onSortClicked(TableRowSortKey.Gibs)}
       >
+        <SortIcon
+          activeSortKey={props.sortKey}
+          sortDir={props.sortDir}
+          sortKey={TableRowSortKey.Gibs}
+        />
         <span>Gibs</span>
       </div>
+
       <div
         classList={{
           [styles.cell]: true,
           [styles.number]: true,
           [styles.headshots]: true,
         }}
+        onClick={() => props.onSortClicked(TableRowSortKey.Headshots)}
       >
+        <SortIcon
+          activeSortKey={props.sortKey}
+          sortDir={props.sortDir}
+          sortKey={TableRowSortKey.Headshots}
+        />
         <span>Headshots</span>
       </div>
+
       <div
         classList={{
           [styles.cell]: true,
           [styles.number]: true,
           [styles.accuracy]: true,
         }}
+        onClick={() => props.onSortClicked(TableRowSortKey.Accuracy)}
       >
+        <SortIcon
+          activeSortKey={props.sortKey}
+          sortDir={props.sortDir}
+          sortKey={TableRowSortKey.Accuracy}
+        />
         <span>Accuracy</span>
       </div>
     </div>

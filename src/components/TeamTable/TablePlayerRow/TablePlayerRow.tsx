@@ -54,7 +54,7 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
       <div
         classList={{
           [styles.cell]: true,
-          [styles.deaths]: true,
+          [styles.kills]: true,
           [styles.number]: true,
         }}
       >

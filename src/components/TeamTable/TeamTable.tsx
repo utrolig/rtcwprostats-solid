@@ -22,7 +22,7 @@ type TeamTableProps = {
 
 export const TeamTable = (props: TeamTableProps) => {
   const [sortKey, setSortKey] = createSignal<TableRowSortKey>(
-    TableRowSortKey.KDR
+    TableRowSortKey.Kdr
   );
   const [sortDir, setSortDir] = createSignal<SortDir>("desc");
 
@@ -34,72 +34,73 @@ export const TeamTable = (props: TeamTableProps) => {
   const getPlayers = () => {
     const team = getTeam();
     const players = getPlayersFromTeam(team, props.groupsData);
+    console.log("sortKey", sortKey());
     return [...players].sort((a, b) => {
       switch (sortKey()) {
-        case "accuracy": {
+        case TableRowSortKey.Accuracy: {
           return (
-            getAccuracy(a) - getAccuracy(b) * (sortDir() === "asc" ? 1 : -1)
+            (getAccuracy(a) - getAccuracy(b)) * (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "add": {
-          return getAdd(a) - getAdd(b) * (sortDir() === "asc" ? 1 : -1);
+        case TableRowSortKey.Add: {
+          return (getAdd(a) - getAdd(b)) * (sortDir() === "asc" ? 1 : -1);
         }
 
-        case "damageDone": {
+        case TableRowSortKey.DamageDone: {
           return (
-            a.categories.damagegiven -
-            b.categories.damagegiven * (sortDir() === "asc" ? 1 : -1)
+            (a.categories.damagegiven - b.categories.damagegiven) *
+            (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "damageReceived": {
+        case TableRowSortKey.DamageReceived: {
           return (
-            a.categories.damagereceived -
-            b.categories.damagereceived * (sortDir() === "asc" ? 1 : -1)
+            (a.categories.damagereceived - b.categories.damagereceived) *
+            (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "deaths": {
+        case TableRowSortKey.Deaths: {
           return (
-            a.categories.deaths -
-            b.categories.deaths * (sortDir() === "asc" ? 1 : -1)
+            (a.categories.deaths - b.categories.deaths) *
+            (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "gibs": {
+        case TableRowSortKey.Gibs: {
           return (
-            a.categories.gibs -
-            b.categories.gibs * (sortDir() === "asc" ? 1 : -1)
+            (a.categories.gibs - b.categories.gibs) *
+            (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "headshots": {
+        case TableRowSortKey.Headshots: {
           return (
-            a.categories.headshots -
-            b.categories.headshots * (sortDir() === "asc" ? 1 : -1)
+            (a.categories.headshots - b.categories.headshots) *
+            (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "kills": {
+        case TableRowSortKey.Kills: {
           return (
             (a.categories.kills - b.categories.kills) *
             (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "kdr": {
+        case TableRowSortKey.Kdr: {
           return (getKdr(a) - getKdr(b)) * (sortDir() === "asc" ? 1 : -1);
         }
 
-        case "revives": {
+        case TableRowSortKey.Revives: {
           return (
-            a.categories.revives -
-            b.categories.revives * (sortDir() === "asc" ? 1 : -1)
+            (a.categories.revives - b.categories.revives) *
+            (sortDir() === "asc" ? 1 : -1)
           );
         }
 
-        case "name": {
+        case TableRowSortKey.Name: {
           return (
             a.alias.localeCompare(b.alias) * (sortDir() === "asc" ? 1 : -1)
           );
