@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --slate-0: #121212;
   --slate-1: #18181a;
@@ -14,6 +18,9 @@
   --slate-12: #edeef0;
   --font-family: "Noto Sans", sans-serif;
   --primary: #922d32;
+  --warning: #ee9644;
+  --success: #37773a;
+  --error: #922d32;
 }
 
 html,

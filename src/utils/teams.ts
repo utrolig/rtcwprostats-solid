@@ -1,5 +1,6 @@
 import {
   Faction,
+  GameClass,
   GroupsResponse,
   Guid,
   MatchSummary,
@@ -9,6 +10,10 @@ import {
 
 export type PlayerStatsWithId = PlayerStats & {
   id: Guid;
+};
+
+export type PlayerStatsWithClass = PlayerStatsWithId & {
+  class: GameClass;
 };
 
 export const getMatchResult = (

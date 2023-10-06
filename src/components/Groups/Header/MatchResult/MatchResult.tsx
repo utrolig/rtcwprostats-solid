@@ -53,7 +53,7 @@ export const MatchResult: Component<MatchResultProps> = (props) => {
         <span>:</span>
         <p
           classList={{
-            [styles.winner]: isWinner("Allied"),
+            [styles.winner]: isWinner("Axis"),
             [styles.draw]: isDraw(),
           }}
         >
