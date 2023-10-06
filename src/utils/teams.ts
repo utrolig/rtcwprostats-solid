@@ -6,6 +6,7 @@ import {
   MatchSummary,
   PlayerStats,
   Team,
+  WStats,
 } from "~/api/types";
 
 export type PlayerStatsWithId = PlayerStats & {
@@ -14,6 +15,12 @@ export type PlayerStatsWithId = PlayerStats & {
 
 export type PlayerStatsWithClass = PlayerStatsWithId & {
   class: GameClass;
+};
+
+export type PlayerStatsFull = PlayerStats & {
+  id: Guid;
+  class: GameClass;
+  weaponStats: WStats[];
 };
 
 export const getMatchResult = (
@@ -86,8 +93,8 @@ const matchSummaryToFactions = (
 export const groupsResponseToTeams = (
   groupsResponse: GroupsResponse
 ): {
-  teamA: PlayerStatsWithId[];
-  teamB: PlayerStatsWithId[];
+  teamA: PlayerStatsFull[];
+  teamB: PlayerStatsFull[];
   factions: ReturnType<typeof matchSummaryToFactions>;
 } => {
   const teamA = [];
@@ -98,8 +105,17 @@ export const groupsResponseToTeams = (
 
   for (const player of statsAll) {
     const [playerId] = Object.keys(player);
-    const playerStats = player[playerId] as PlayerStatsWithId;
+    const playerStats = player[playerId] as PlayerStatsFull;
     playerStats.id = playerId;
+    playerStats.class = groupsResponse.classes[playerId];
+
+    for (const element of groupsResponse.wstatsall) {
+      const [statsPlayerId] = Object.keys(element);
+      if (statsPlayerId === playerId) {
+        playerStats.weaponStats = element[statsPlayerId];
+        break;
+      }
+    }
 
     if (playerStats.team === "TeamA") {
       teamA.push(playerStats);

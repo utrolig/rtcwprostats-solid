@@ -1,0 +1,36 @@
+.container {
+  background-color: var(--slate-1);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.container.odd {
+  background-color: var(--slate-2);
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 80px;
+}
+
+.weaponImage {
+  height: 32px;
+}
+
+.weaponStat {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  padding: 24px;
+}
+
+.title {
+  color: var(--slate-8);
+  font-size: 13px;
+  margin: 0;
+}
+
+.value {
+  margin: 0;
+}

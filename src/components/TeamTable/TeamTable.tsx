@@ -3,7 +3,7 @@ import styles from "./TeamTable.module.css";
 import { factionImages } from "~/assets/factionImages";
 import { toReadableFaction } from "~/utils/faction";
 import { TablePlayerRow } from "./TablePlayerRow/TablePlayerRow";
-import { PlayerStatsWithClass } from "~/utils/teams";
+import { PlayerStatsFull } from "~/utils/teams";
 import { For, Show } from "solid-js";
 import { TablePlayerHeaderRow } from "./TablePlayerRow/TablePlayerHeaderRow";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
@@ -14,7 +14,7 @@ type TeamTableProps = {
   sortDir: SortDir;
   sortKey: TableRowSortKey;
   onSortClicked: (key: TableRowSortKey) => void;
-  players: PlayerStatsWithClass[];
+  players: PlayerStatsFull[];
 };
 
 export const TeamTable = (props: TeamTableProps) => {
@@ -37,8 +37,9 @@ export const TeamTable = (props: TeamTableProps) => {
           onSortClicked={props.onSortClicked}
         />
         <For each={props.players}>
-          {(player) => (
+          {(player, idx) => (
             <TablePlayerRow
+              isOdd={idx() % 2 === 0}
               playerElos={props.groupsData.elos}
               player={player}
             />

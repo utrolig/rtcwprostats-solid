@@ -1,33 +1,44 @@
-import { GroupsResponse, Team } from "~/api/types";
-import { PlayerStatsWithClass } from "./teams";
+import { GroupsResponse, Team, WStatsAll } from "~/api/types";
+import { PlayerStatsFull, PlayerStatsWithClass } from "./teams";
 import { SortDir, TableRowSortKey, getAccuracy, getAdd, getKdr } from "./utils";
+
+export const getWstatsForPlayer = (playerId: string, wstats: WStatsAll) => {
+  for (const element of wstats) {
+    const [statsPlayerId] = Object.keys(element);
+    if (statsPlayerId === playerId) {
+      return element[statsPlayerId];
+    }
+  }
+};
 
 export const getPlayersFromTeam = (
   team: Team | "both",
   groupsResponse: GroupsResponse
-): PlayerStatsWithClass[] => {
+): PlayerStatsFull[] => {
   const players = groupsResponse.statsall.reduce((acc, stats) => {
     const [playerId] = Object.keys(stats);
 
     const playerStats = stats[playerId];
+    const wstats = getWstatsForPlayer(playerId, groupsResponse.wstatsall);
+
+    if (wstats) {
+      (playerStats as PlayerStatsFull).weaponStats = wstats;
+    }
+
+    (playerStats as PlayerStatsFull).id = playerId;
+    (playerStats as PlayerStatsFull).class = groupsResponse.classes[playerId];
 
     if (team === "both") {
-      (playerStats as PlayerStatsWithClass).id = playerId;
-      (playerStats as PlayerStatsWithClass).class =
-        groupsResponse.classes[playerId];
-      acc.push(playerStats as PlayerStatsWithClass);
+      acc.push(playerStats as PlayerStatsFull);
       return acc;
     }
 
     if (playerStats.team === team) {
-      (playerStats as PlayerStatsWithClass).id = playerId;
-      (playerStats as PlayerStatsWithClass).class =
-        groupsResponse.classes[playerId];
-      acc.push(playerStats as PlayerStatsWithClass);
+      acc.push(playerStats as PlayerStatsFull);
     }
 
     return acc;
-  }, [] as PlayerStatsWithClass[]);
+  }, [] as PlayerStatsFull[]);
 
   return players;
 };

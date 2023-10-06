@@ -1,17 +1,14 @@
 .row {
   align-items: center;
+  background-color: var(--slate-1);
   display: flex;
   gap: 24px;
   padding: 0 12px;
   user-select: none;
 }
 
-.row:nth-child(odd) {
+.row.odd {
   background-color: var(--slate-2);
-}
-
-.row:nth-child(even) {
-  background-color: var(--slate-1);
 }
 
 .classIcon {

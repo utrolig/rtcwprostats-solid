@@ -85,7 +85,7 @@ export type WStats = {
   weapon: Weapon;
 };
 
-export type PlayerWStats = Record<Guid, WStats>;
+export type PlayerWStats = Record<Guid, WStats[]>;
 
 export type WStatsAll = PlayerWStats[];
 

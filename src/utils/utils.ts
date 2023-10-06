@@ -1,4 +1,4 @@
-import { Elos, PlayerStats } from "~/api/types";
+import { Elos, PlayerStats, WStats } from "~/api/types";
 import { PlayerStatsWithClass } from "./teams";
 
 export const TableRowSortKey = {
@@ -33,4 +33,8 @@ export const getAdd = (player: PlayerStatsWithClass) => {
 
 export const getAccuracy = (player: PlayerStatsWithClass) => {
   return (player.categories.hits / player.categories.shots) * 100;
+};
+
+export const getWeaponAccuracy = (wstats: WStats) => {
+  return (wstats.hits / wstats.shots) * 100;
 };

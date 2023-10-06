@@ -1,14 +1,8 @@
 import { Faction, GroupsResponse } from "~/api/types";
 import styles from "./Body.module.css";
-import { For, Show, createEffect, createSignal } from "solid-js";
+import { For, Show, createSignal } from "solid-js";
 import { TeamTable } from "~/components/TeamTable/TeamTable";
-import {
-  SortDir,
-  TableRowSortKey,
-  getAccuracy,
-  getAdd,
-  getKdr,
-} from "~/utils/utils";
+import { SortDir, TableRowSortKey } from "~/utils/utils";
 import { getTeamFromFaction, groupsResponseToTeams } from "~/utils/teams";
 import { getPlayersFromTeam, playersByKeyAndDir } from "~/utils/players";
 
