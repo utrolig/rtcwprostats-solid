@@ -4,13 +4,13 @@ import { factionImages } from "~/assets/factionImages";
 import { toReadableFaction } from "~/utils/faction";
 import { TablePlayerRow } from "./TablePlayerRow/TablePlayerRow";
 import { PlayerStatsWithClass } from "~/utils/teams";
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { TablePlayerHeaderRow } from "./TablePlayerRow/TablePlayerHeaderRow";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
 
 type TeamTableProps = {
   groupsData: GroupsResponse;
-  faction: Faction;
+  faction?: Faction;
   sortDir: SortDir;
   sortKey: TableRowSortKey;
   onSortClicked: (key: TableRowSortKey) => void;
@@ -21,8 +21,14 @@ export const TeamTable = (props: TeamTableProps) => {
   return (
     <div class={styles.container}>
       <div class={styles.header}>
-        <img src={factionImages[props.faction]} class={styles.factionImage} />
-        <p>{toReadableFaction(props.faction)}</p>
+        <Show when={props.faction} keyed>
+          {(faction) => (
+            <>
+              <img src={factionImages[faction]} class={styles.factionImage} />
+              <p>{toReadableFaction(faction)}</p>
+            </>
+          )}
+        </Show>
       </div>
       <div class={styles.body}>
         <TablePlayerHeaderRow

@@ -1,6 +1,6 @@
 import { Faction, GroupsResponse } from "~/api/types";
 import styles from "./Body.module.css";
-import { For, createSignal } from "solid-js";
+import { For, Show, createEffect, createSignal } from "solid-js";
 import { TeamTable } from "~/components/TeamTable/TeamTable";
 import {
   SortDir,
@@ -10,13 +10,14 @@ import {
   getKdr,
 } from "~/utils/utils";
 import { getTeamFromFaction, groupsResponseToTeams } from "~/utils/teams";
-import { getPlayersFromTeam } from "~/utils/players";
+import { getPlayersFromTeam, playersByKeyAndDir } from "~/utils/players";
 
 export type BodyProps = {
   data: GroupsResponse;
 };
 
 export default function Body(props: BodyProps) {
+  const [combineStats, setCombineStats] = createSignal(false);
   const [sortKey, setSortKey] = createSignal<TableRowSortKey>(
     TableRowSortKey.Kdr
   );
@@ -41,82 +42,16 @@ export default function Body(props: BodyProps) {
     return getTeamFromFaction(teams.factions, faction);
   };
 
-  const getPlayers = (faction: Faction) => {
+  const getPlayers = (faction: Faction | "both") => {
+    const byKeyAndDir = playersByKeyAndDir(sortKey(), sortDir());
+    if (faction === "both") {
+      const players = getPlayersFromTeam("both", props.data);
+      return [...players].sort(byKeyAndDir);
+    }
+
     const team = getTeam(faction);
     const players = getPlayersFromTeam(team, props.data);
-    console.log("sortKey", sortKey());
-    return [...players].sort((a, b) => {
-      switch (sortKey()) {
-        case TableRowSortKey.Accuracy: {
-          return (
-            (getAccuracy(a) - getAccuracy(b)) * (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.Add: {
-          return (getAdd(a) - getAdd(b)) * (sortDir() === "asc" ? 1 : -1);
-        }
-
-        case TableRowSortKey.DamageDone: {
-          return (
-            (a.categories.damagegiven - b.categories.damagegiven) *
-            (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.DamageReceived: {
-          return (
-            (a.categories.damagereceived - b.categories.damagereceived) *
-            (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.Deaths: {
-          return (
-            (a.categories.deaths - b.categories.deaths) *
-            (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.Gibs: {
-          return (
-            (a.categories.gibs - b.categories.gibs) *
-            (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.Headshots: {
-          return (
-            (a.categories.headshots - b.categories.headshots) *
-            (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.Kills: {
-          return (
-            (a.categories.kills - b.categories.kills) *
-            (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.Kdr: {
-          return (getKdr(a) - getKdr(b)) * (sortDir() === "asc" ? 1 : -1);
-        }
-
-        case TableRowSortKey.Revives: {
-          return (
-            (a.categories.revives - b.categories.revives) *
-            (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-
-        case TableRowSortKey.Name: {
-          return (
-            a.alias.localeCompare(b.alias) * (sortDir() === "asc" ? 1 : -1)
-          );
-        }
-      }
-    });
+    return [...players].sort(byKeyAndDir);
   };
 
   return (
@@ -125,6 +60,15 @@ export default function Body(props: BodyProps) {
         <li class={styles.active}>
           <h6>Match</h6>
         </li>
+        <div>
+          <label class={styles.switch}>
+            <input
+              type="checkbox"
+              checked={combineStats()}
+              onClick={() => setCombineStats(!combineStats())}
+            />
+          </label>
+        </div>
         <For each={Object.entries(props.data.match_summary.results)}>
           {([_matchId, result], idx) => (
             <li>
@@ -134,22 +78,33 @@ export default function Body(props: BodyProps) {
           )}
         </For>
       </ul>
-      <TeamTable
-        players={getPlayers("Allied")}
-        sortKey={sortKey()}
-        sortDir={sortDir()}
-        onSortClicked={onSortClicked}
-        groupsData={props.data}
-        faction={"Allied"}
-      />
-      <TeamTable
-        players={getPlayers("Axis")}
-        sortKey={sortKey()}
-        sortDir={sortDir()}
-        onSortClicked={onSortClicked}
-        groupsData={props.data}
-        faction={"Axis"}
-      />
+      <Show when={combineStats()}>
+        <TeamTable
+          players={getPlayers("both")}
+          groupsData={props.data}
+          onSortClicked={onSortClicked}
+          sortDir={sortDir()}
+          sortKey={sortKey()}
+        />
+      </Show>
+      <Show when={!combineStats()}>
+        <TeamTable
+          players={getPlayers("Allied")}
+          sortKey={sortKey()}
+          sortDir={sortDir()}
+          onSortClicked={onSortClicked}
+          groupsData={props.data}
+          faction={"Allied"}
+        />
+        <TeamTable
+          players={getPlayers("Axis")}
+          sortKey={sortKey()}
+          sortDir={sortDir()}
+          onSortClicked={onSortClicked}
+          groupsData={props.data}
+          faction={"Axis"}
+        />
+      </Show>
     </div>
   );
 }
