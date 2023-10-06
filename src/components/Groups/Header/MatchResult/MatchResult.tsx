@@ -18,6 +18,10 @@ export const MatchResult: Component<MatchResultProps> = (props) => {
     return props.result.TeamB > props.result.TeamA;
   };
 
+  const isDraw = () => {
+    return props.result.TeamA === props.result.TeamB;
+  };
+
   const actualResult = createMemo(() => {
     const maps = [props.maps[0], props.maps[1]];
     if (props.factions.TeamA === "Allied") {
@@ -38,11 +42,23 @@ export const MatchResult: Component<MatchResultProps> = (props) => {
     <div class={styles.container}>
       <img class={styles.logo} src={logoSrc} />
       <div class={styles.result}>
-        <p classList={{ [styles.winner]: isWinner("Allied") }}>
+        <p
+          classList={{
+            [styles.winner]: isWinner("Allied"),
+            [styles.draw]: isDraw(),
+          }}
+        >
           {actualResult().Allied}
         </p>
         <span>:</span>
-        <p>{actualResult().Axis}</p>
+        <p
+          classList={{
+            [styles.winner]: isWinner("Allied"),
+            [styles.draw]: isDraw(),
+          }}
+        >
+          {actualResult().Axis}
+        </p>
       </div>
       <div class={styles.maps}>
         {actualResult().maps[0]} / {actualResult().maps[1]}
