@@ -7,6 +7,8 @@ import { PlayerStatsFull } from "~/utils/teams";
 import { For, Show } from "solid-js";
 import { TablePlayerHeaderRow } from "./TablePlayerRow/TablePlayerHeaderRow";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
+import { Switch } from "@kobalte/core";
+import { Toggle } from "../Toggle/Toggle";
 
 type TeamTableProps = {
   groupsData: GroupsResponse;
@@ -32,18 +34,12 @@ export const TeamTable = (props: TeamTableProps) => {
           )}
         </Show>
         <Show when={props.onCombineStatsClicked}>
-          {
-            <div class={styles.combineStats}>
-              <input
-                type="checkbox"
-                id="combineStats"
-                name="combineStats"
-                checked={props.combineStats}
-                onChange={props.onCombineStatsClicked}
-              />
-              <label for="combineStats">Combine Stats</label>
-            </div>
-          }
+          <Toggle
+            class={styles.combineStats}
+            label="Combine stats"
+            onToggle={props.onCombineStatsClicked}
+            isToggled={!!props.combineStats}
+          />
         </Show>
       </div>
       <div class={styles.body}>
