@@ -1,4 +1,4 @@
-import { Component, createMemo } from "solid-js";
+import { Component, Show, createEffect, createMemo } from "solid-js";
 import { getMapImage } from "~/assets/maps";
 import styles from "./Maps.module.css";
 
@@ -17,9 +17,16 @@ export const Maps: Component<MapsProps> = (props) => {
   });
 
   return (
-    <div class={styles.container}>
+    <div
+      classList={{
+        [styles.container]: true,
+        [styles.twoMaps]: !!(mapImages().first && mapImages().second),
+      }}
+    >
       <img class={styles.firstMap} src={mapImages().first} />
-      <img class={styles.secondMap} src={mapImages().second} />
+      <Show when={mapImages().second}>
+        <img class={styles.secondMap} src={mapImages().second} />
+      </Show>
       <div class={styles.overlay} />
     </div>
   );

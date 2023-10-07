@@ -1,4 +1,4 @@
-import { Component, createMemo } from "solid-js";
+import { Component, Show, createMemo } from "solid-js";
 import { Faction, Team } from "~/api/types";
 import logoSrc from "~/assets/rtcw-pro-logo.svg";
 import styles from "./MatchResult.module.css";
@@ -61,7 +61,10 @@ export const MatchResult: Component<MatchResultProps> = (props) => {
         </p>
       </div>
       <div class={styles.maps}>
-        {actualResult().maps[0]} / {actualResult().maps[1]}
+        <span>{actualResult().maps[0]}</span>
+        <Show when={actualResult().maps.filter(Boolean).length > 1}>
+          <span> / {actualResult().maps[1]}</span>
+        </Show>
       </div>
     </div>
   );
