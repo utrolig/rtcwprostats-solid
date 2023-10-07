@@ -54,15 +54,7 @@ export default function Body(props: BodyProps) {
         <li class={styles.active}>
           <h6>Match</h6>
         </li>
-        <div>
-          <label class={styles.switch}>
-            <input
-              type="checkbox"
-              checked={combineStats()}
-              onClick={() => setCombineStats(!combineStats())}
-            />
-          </label>
-        </div>
+
         <For each={Object.entries(props.data.match_summary.results)}>
           {([_matchId, result], idx) => (
             <li>
@@ -74,6 +66,8 @@ export default function Body(props: BodyProps) {
       </ul>
       <Show when={combineStats()}>
         <TeamTable
+          combineStats={combineStats()}
+          onCombineStatsClicked={() => setCombineStats(false)}
           players={getPlayers("both")}
           groupsData={props.data}
           onSortClicked={onSortClicked}
@@ -83,6 +77,8 @@ export default function Body(props: BodyProps) {
       </Show>
       <Show when={!combineStats()}>
         <TeamTable
+          combineStats={combineStats()}
+          onCombineStatsClicked={() => setCombineStats(true)}
           players={getPlayers("Allied")}
           sortKey={sortKey()}
           sortDir={sortDir()}

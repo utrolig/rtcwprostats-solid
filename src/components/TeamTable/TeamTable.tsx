@@ -15,6 +15,8 @@ type TeamTableProps = {
   sortKey: TableRowSortKey;
   onSortClicked: (key: TableRowSortKey) => void;
   players: PlayerStatsFull[];
+  onCombineStatsClicked?: () => void;
+  combineStats?: boolean;
 };
 
 export const TeamTable = (props: TeamTableProps) => {
@@ -28,6 +30,20 @@ export const TeamTable = (props: TeamTableProps) => {
               <p>{toReadableFaction(faction)}</p>
             </>
           )}
+        </Show>
+        <Show when={props.onCombineStatsClicked}>
+          {
+            <div class={styles.combineStats}>
+              <input
+                type="checkbox"
+                id="combineStats"
+                name="combineStats"
+                checked={props.combineStats}
+                onChange={props.onCombineStatsClicked}
+              />
+              <label for="combineStats">Combine Stats</label>
+            </div>
+          }
         </Show>
       </div>
       <div class={styles.body}>

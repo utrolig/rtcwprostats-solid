@@ -7,6 +7,15 @@
   user-select: none;
 }
 
+.row:hover {
+  background-color: var(--slate-4);
+  cursor: pointer;
+}
+
+.row.odd:hover {
+  background-color: var(--slate-4);
+}
+
 .row.odd {
   background-color: var(--slate-2);
 }
@@ -47,6 +56,10 @@
   color: var(--slate-8);
   font-size: 10px;
   font-weight: bold;
+}
+
+.header {
+  background-color: var(--slate-0);
 }
 
 .header .cell.cell.name {

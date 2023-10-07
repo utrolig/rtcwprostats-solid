@@ -25,3 +25,15 @@
   display: flex;
   flex-direction: column;
 }
+
+.combineStats {
+  cursor: pointer;
+  gap: 8px;
+  display: flex;
+  margin-left: auto;
+}
+
+.combineStats label {
+  color: var(--slate-8);
+  cursor: pointer;
+}

@@ -28,11 +28,3 @@
   color: var(--slate-8);
   margin: 0;
 }
-
-@media only screen and (min-width: 1248px) {
-  .body {
-    margin-bottom: 24px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
-}
