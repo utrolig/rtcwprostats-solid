@@ -28,3 +28,20 @@
   color: var(--slate-8);
   margin: 0;
 }
+
+.statsWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 48px;
+}
+
+.statsWrapper.combined {
+  padding: 22px 48px 0;
+}
+
+.combineStats {
+  position: absolute;
+  top: 0;
+  right: 48px;
+}

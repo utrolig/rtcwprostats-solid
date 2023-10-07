@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  margin: 12px 48px 24px;
+  margin: 12px 0 24px;
 }
 
 .factionImage {

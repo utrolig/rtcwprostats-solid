@@ -1,4 +1,4 @@
-import { Elos } from "~/api/types";
+import { Elos, Faction } from "~/api/types";
 import styles from "./TablePlayerRow.module.css";
 import { PlayerStatsFull, PlayerStatsWithClass } from "~/utils/teams";
 import { eloToRank, rankColors } from "~/utils/elo";
@@ -7,11 +7,13 @@ import { classIcons } from "~/assets/classIcons";
 import { getAccuracy, getAdd, getElo, getKdr } from "~/utils/utils";
 import { TablePlayerWeaponStats } from "./TablePlayerWeaponStats";
 import { Collapsible } from "@kobalte/core";
+import { factionImages } from "~/assets/factionImages";
 
 type TablePlayerRowProps = {
   player: PlayerStatsFull;
   playerElos: Elos;
   isOdd: boolean;
+  faction?: Faction;
 };
 
 export const TablePlayerRow = (props: TablePlayerRowProps) => {
@@ -30,7 +32,17 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
               class={styles.classIcon}
             />
             <div class={styles.nameContainer}>
-              <h4>{props.player.alias}</h4>
+              <h4>
+                <span>{props.player.alias}</span>
+                <Show when={props.faction} keyed>
+                  {(faction) => (
+                    <img
+                      src={factionImages[faction]}
+                      class={styles.factionImage}
+                    />
+                  )}
+                </Show>
+              </h4>
               <div class={styles.rank}>
                 <Show when={getElo(props.player.id, props.playerElos) > 0}>
                   <span

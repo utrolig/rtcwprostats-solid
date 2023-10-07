@@ -16,7 +16,7 @@
 }
 
 .toggleInput:focus-visible + .toggleControl {
-  outline: 2px solid hsl(200 98% 39%);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 

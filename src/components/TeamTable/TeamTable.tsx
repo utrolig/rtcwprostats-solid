@@ -7,8 +7,6 @@ import { PlayerStatsFull } from "~/utils/teams";
 import { For, Show } from "solid-js";
 import { TablePlayerHeaderRow } from "./TablePlayerRow/TablePlayerHeaderRow";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
-import { Switch } from "@kobalte/core";
-import { Toggle } from "../Toggle/Toggle";
 
 type TeamTableProps = {
   groupsData: GroupsResponse;
@@ -17,8 +15,6 @@ type TeamTableProps = {
   sortKey: TableRowSortKey;
   onSortClicked: (key: TableRowSortKey) => void;
   players: PlayerStatsFull[];
-  onCombineStatsClicked?: () => void;
-  combineStats?: boolean;
 };
 
 export const TeamTable = (props: TeamTableProps) => {
@@ -32,14 +28,6 @@ export const TeamTable = (props: TeamTableProps) => {
               <p>{toReadableFaction(faction)}</p>
             </>
           )}
-        </Show>
-        <Show when={props.onCombineStatsClicked}>
-          <Toggle
-            class={styles.combineStats}
-            label="Combine stats"
-            onToggle={props.onCombineStatsClicked}
-            isToggled={!!props.combineStats}
-          />
         </Show>
       </div>
       <div class={styles.body}>

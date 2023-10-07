@@ -5,6 +5,7 @@ import { TeamTable } from "~/components/TeamTable/TeamTable";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
 import { getTeamFromFaction, groupsResponseToTeams } from "~/utils/teams";
 import { getPlayersFromTeam, playersByKeyAndDir } from "~/utils/players";
+import { Toggle } from "~/components/Toggle/Toggle";
 
 export type BodyProps = {
   data: GroupsResponse;
@@ -64,37 +65,46 @@ export default function Body(props: BodyProps) {
           )}
         </For>
       </ul>
-      <Show when={combineStats()}>
-        <TeamTable
-          combineStats={combineStats()}
-          onCombineStatsClicked={() => setCombineStats(false)}
-          players={getPlayers("both")}
-          groupsData={props.data}
-          onSortClicked={onSortClicked}
-          sortDir={sortDir()}
-          sortKey={sortKey()}
+      <div
+        classList={{
+          [styles.statsWrapper]: true,
+          [styles.combined]: combineStats(),
+        }}
+      >
+        <Toggle
+          class={styles.combineStats}
+          label="Combine stats"
+          onToggle={setCombineStats}
+          isToggled={combineStats()}
         />
-      </Show>
-      <Show when={!combineStats()}>
-        <TeamTable
-          combineStats={combineStats()}
-          onCombineStatsClicked={() => setCombineStats(true)}
-          players={getPlayers("Allied")}
-          sortKey={sortKey()}
-          sortDir={sortDir()}
-          onSortClicked={onSortClicked}
-          groupsData={props.data}
-          faction={"Allied"}
-        />
-        <TeamTable
-          players={getPlayers("Axis")}
-          sortKey={sortKey()}
-          sortDir={sortDir()}
-          onSortClicked={onSortClicked}
-          groupsData={props.data}
-          faction={"Axis"}
-        />
-      </Show>
+        <Show when={combineStats()}>
+          <TeamTable
+            players={getPlayers("both")}
+            groupsData={props.data}
+            onSortClicked={onSortClicked}
+            sortDir={sortDir()}
+            sortKey={sortKey()}
+          />
+        </Show>
+        <Show when={!combineStats()}>
+          <TeamTable
+            players={getPlayers("Allied")}
+            sortKey={sortKey()}
+            sortDir={sortDir()}
+            onSortClicked={onSortClicked}
+            groupsData={props.data}
+            faction={"Allied"}
+          />
+          <TeamTable
+            players={getPlayers("Axis")}
+            sortKey={sortKey()}
+            sortDir={sortDir()}
+            onSortClicked={onSortClicked}
+            groupsData={props.data}
+            faction={"Axis"}
+          />
+        </Show>
+      </div>
     </div>
   );
 }
