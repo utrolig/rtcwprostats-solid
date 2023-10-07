@@ -16,7 +16,9 @@ export type Weapon =
   | "Syringe"
   | "Dynamite"
   | "Airstrike"
-  | "Artillery";
+  | "Artillery"
+  | "Sten"
+  | "Mauser";
 
 export type PlayerStats = {
   alias: string;

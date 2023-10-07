@@ -143,10 +143,17 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
         </div>
       </div>
       <Show when={isExpanded()}>
-        <TablePlayerWeaponStats
-          weaponStats={props.player.weaponStats}
-          isOdd={props.isOdd}
-        />
+        <Show
+          when={props.player.weaponStats}
+          fallback={
+            "Something has gone wrong here. Please report to your nearest admin or sales representative."
+          }
+        >
+          <TablePlayerWeaponStats
+            weaponStats={props.player.weaponStats}
+            isOdd={props.isOdd}
+          />
+        </Show>
       </Show>
     </>
   );

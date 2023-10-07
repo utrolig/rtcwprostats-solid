@@ -10,6 +10,8 @@ import Artillery from "./iconw_binoculars.svg";
 import Colt from "./iconw_colt.svg";
 import Dynamite from "./iconw_dynamite.svg";
 import Syringe from "./iconw_syringe.svg";
+import Sten from "./iconw_sten.svg";
+import Mauser from "./iconw_mauser.svg";
 
 export const WeaponImagesSvg: Record<Weapon, string> = {
   Luger,
@@ -23,4 +25,6 @@ export const WeaponImagesSvg: Record<Weapon, string> = {
   Colt,
   Dynamite,
   Syringe,
+  Sten,
+  Mauser,
 };

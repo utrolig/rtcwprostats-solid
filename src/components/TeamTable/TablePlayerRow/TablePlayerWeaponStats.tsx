@@ -1,9 +1,8 @@
 import { WStats } from "~/api/types";
 import styles from "./TablePlayerWeaponStats.module.css";
 import { For, createEffect } from "solid-js";
-import { WeaponImages } from "~/assets/weapons";
-import { getAccuracy, getWeaponAccuracy } from "~/utils/utils";
 import { WeaponImagesSvg } from "~/assets/weapons/svg";
+import { WeaponsSortOrder } from "~/utils/weapons";
 
 export type TablePlayerWeaponStatsProps = {
   isOdd: boolean;
@@ -13,15 +12,7 @@ export type TablePlayerWeaponStatsProps = {
 export const TablePlayerWeaponStats = (props: TablePlayerWeaponStatsProps) => {
   const sortedWstatsByKills = () => {
     return [...props.weaponStats].sort((a, b) => {
-      if (a.kills > b.kills) {
-        return -1;
-      }
-
-      if (a.kills < b.kills) {
-        return 1;
-      }
-
-      return 0;
+      return WeaponsSortOrder[a.weapon] - WeaponsSortOrder[b.weapon];
     });
   };
 
