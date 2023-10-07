@@ -6,6 +6,7 @@ import { SortDir, TableRowSortKey } from "~/utils/utils";
 import { getTeamFromFaction, groupsResponseToTeams } from "~/utils/teams";
 import { getPlayersFromTeam, playersByKeyAndDir } from "~/utils/players";
 import { Toggle } from "~/components/Toggle/Toggle";
+import { Awards } from "~/components/Awards/Awards";
 
 export type BodyProps = {
   data: GroupsResponse;
@@ -105,6 +106,7 @@ export default function Body(props: BodyProps) {
           />
         </Show>
       </div>
+      <Awards />
     </div>
   );
 }
