@@ -7,12 +7,12 @@
   user-select: none;
 }
 
-.row:hover {
+.row:not(.header):hover {
   background-color: var(--slate-4);
   cursor: pointer;
 }
 
-.row.odd:hover {
+.rows:not(.header).odd:hover {
   background-color: var(--slate-4);
 }
 
