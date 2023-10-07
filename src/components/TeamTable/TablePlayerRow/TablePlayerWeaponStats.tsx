@@ -1,6 +1,6 @@
 import { WStats } from "~/api/types";
 import styles from "./TablePlayerWeaponStats.module.css";
-import { For } from "solid-js";
+import { For, createEffect } from "solid-js";
 import { WeaponImages } from "~/assets/weapons";
 import { getAccuracy, getWeaponAccuracy } from "~/utils/utils";
 import { WeaponImagesSvg } from "~/assets/weapons/svg";
@@ -12,24 +12,36 @@ export type TablePlayerWeaponStatsProps = {
 
 export const TablePlayerWeaponStats = (props: TablePlayerWeaponStatsProps) => {
   const sortedWstatsByKills = () => {
-    return [...props.weaponStats]
-      .filter((wstat) => wstat.kills > 0)
-      .sort((a, b) => {
-        if (a.kills > b.kills) {
-          return -1;
-        }
+    return [...props.weaponStats].sort((a, b) => {
+      if (a.kills > b.kills) {
+        return -1;
+      }
 
-        if (a.kills < b.kills) {
-          return 1;
-        }
+      if (a.kills < b.kills) {
+        return 1;
+      }
 
-        return 0;
-      });
+      return 0;
+    });
   };
 
   const getAccuracy = (shots: number, hits: number) => {
-    return (hits / shots) * 100;
+    const acc = (hits / shots) * 100;
+    if (!isNaN(acc)) {
+      return (
+        <>
+          <span>{acc.toFixed(1)}</span>
+          <span class={styles.separator}>%</span>
+        </>
+      );
+    }
+
+    return "N/A";
   };
+
+  createEffect(() => {
+    console.log(props.weaponStats);
+  });
 
   return (
     <div classList={{ [styles.container]: true, [styles.odd]: props.isOdd }}>
@@ -64,8 +76,7 @@ export const TablePlayerWeaponStats = (props: TablePlayerWeaponStatsProps) => {
               <span>{wstats.weapon}</span>
             </div>
             <div classList={{ [styles.cell]: true, [styles.accuracy]: true }}>
-              {getAccuracy(wstats.shots, wstats.hits).toFixed(1)}
-              <span class={styles.separator}>%</span>
+              {getAccuracy(wstats.shots, wstats.hits)}
             </div>
             <div classList={{ [styles.cell]: true, [styles.hits]: true }}>
               {wstats.hits}
