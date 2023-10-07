@@ -1,5 +1,5 @@
 import { Show, createResource } from "solid-js";
-import { useParams, useRouteData } from "solid-start";
+import { Title, useParams, useRouteData } from "solid-start";
 import { api } from "~/api";
 import { GroupsLayout } from "~/components/Layouts/Group";
 import GroupsHeader from "~/components/Groups/Header";
@@ -19,15 +19,18 @@ export function routeData() {
 export default function Group() {
   const { data } = useRouteData<typeof routeData>();
   return (
-    <GroupsLayout>
-      <Show when={data()}>
-        {(data) => (
-          <>
-            <GroupsHeader data={data()} />
-            <GroupsBody data={data()} />
-          </>
-        )}
-      </Show>
-    </GroupsLayout>
+    <>
+      <Title>{data()?.match_id}</Title>
+      <GroupsLayout>
+        <Show when={data()}>
+          {(data) => (
+            <>
+              <GroupsHeader data={data()} />
+              <GroupsBody data={data()} />
+            </>
+          )}
+        </Show>
+      </GroupsLayout>
+    </>
   );
 }
