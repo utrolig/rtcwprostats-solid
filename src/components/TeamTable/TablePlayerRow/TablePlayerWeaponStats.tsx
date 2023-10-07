@@ -2,7 +2,8 @@ import { WStats } from "~/api/types";
 import styles from "./TablePlayerWeaponStats.module.css";
 import { For } from "solid-js";
 import { WeaponImages } from "~/assets/weapons";
-import { getWeaponAccuracy } from "~/utils/utils";
+import { getAccuracy, getWeaponAccuracy } from "~/utils/utils";
+import { WeaponImagesSvg } from "~/assets/weapons/svg";
 
 export type TablePlayerWeaponStatsProps = {
   isOdd: boolean;
@@ -26,26 +27,59 @@ export const TablePlayerWeaponStats = (props: TablePlayerWeaponStatsProps) => {
       });
   };
 
+  const getAccuracy = (shots: number, hits: number) => {
+    return (hits / shots) * 100;
+  };
+
   return (
     <div classList={{ [styles.container]: true, [styles.odd]: props.isOdd }}>
+      <div classList={{ [styles.weaponStat]: true, [styles.header]: true }}>
+        <div classList={{ [styles.cell]: true, [styles.weapon]: true }}>
+          Weapon
+        </div>
+        <div classList={{ [styles.cell]: true, [styles.accuracy]: true }}>
+          Accuracy
+        </div>
+        <div classList={{ [styles.cell]: true, [styles.hits]: true }}>
+          Hits/Shots
+        </div>
+        <div classList={{ [styles.cell]: true, [styles.kills]: true }}>
+          Kills
+        </div>
+        <div classList={{ [styles.cell]: true, [styles.deaths]: true }}>
+          Deaths
+        </div>
+        <div classList={{ [styles.cell]: true, [styles.headshots]: true }}>
+          HS
+        </div>
+      </div>
       <For each={sortedWstatsByKills()}>
         {(wstats) => (
           <div class={styles.weaponStat}>
-            <div class={styles.imageWrapper}>
+            <div classList={{ [styles.cell]: true, [styles.weapon]: true }}>
               <img
-                src={WeaponImages[wstats.weapon]}
                 class={styles.weaponImage}
+                src={WeaponImagesSvg[wstats.weapon]}
               />
+              <span>{wstats.weapon}</span>
             </div>
-            <div>
-              <h4 class={styles.title}>Kills</h4>
-              <p class={styles.value}>{wstats.kills}</p>
+            <div classList={{ [styles.cell]: true, [styles.accuracy]: true }}>
+              {getAccuracy(wstats.shots, wstats.hits).toFixed(1)}
+              <span class={styles.separator}>%</span>
             </div>
-            <div>
-              <h4 class={styles.title}>Accuracy</h4>
-              <p class={styles.value}>
-                {getWeaponAccuracy(wstats).toFixed(1)}%
-              </p>
+            <div classList={{ [styles.cell]: true, [styles.hits]: true }}>
+              {wstats.hits}
+              <span class={styles.separator}>/</span>
+              {wstats.shots}
+            </div>
+            <div classList={{ [styles.cell]: true, [styles.kills]: true }}>
+              {wstats.kills}
+            </div>
+            <div classList={{ [styles.cell]: true, [styles.deaths]: true }}>
+              {wstats.deaths}
+            </div>
+            <div classList={{ [styles.cell]: true, [styles.headshots]: true }}>
+              {wstats.headshots}
             </div>
           </div>
         )}

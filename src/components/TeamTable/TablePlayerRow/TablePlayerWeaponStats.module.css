@@ -1,36 +1,67 @@
 .container {
   background-color: var(--slate-1);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 12px;
 }
 
 .container.odd {
   background-color: var(--slate-2);
 }
 
-.imageWrapper {
+.weaponStat {
   display: flex;
-  justify-content: flex-end;
-  width: 80px;
+  gap: 24px;
+}
+
+.header .cell {
+  color: var(--slate-8);
+  font-size: 11px;
+  font-weight: bold;
+  padding: 0;
+}
+
+.cell {
+  font-size: 14px;
+  padding: 2px 0;
+  text-align: right;
+}
+
+.header .cell.weapon {
+  padding-left: 36px;
 }
 
 .weaponImage {
-  height: 32px;
+  margin-right: 12px;
+  height: 12px;
+  width: 24px;
 }
 
-.weaponStat {
-  align-items: center;
-  display: flex;
-  gap: 8px;
-  padding: 24px;
+.weapon {
+  width: 190px;
+  text-align: left;
 }
 
-.title {
-  color: var(--slate-8);
-  font-size: 13px;
-  margin: 0;
+.accuracy {
+  width: 50px;
 }
 
-.value {
-  margin: 0;
+.hits {
+  width: 60px;
+}
+
+.kills {
+  width: 30px;
+}
+
+.deaths {
+  width: 35px;
+}
+
+.headshots {
+  width: 20px;
+}
+
+.separator {
+  color: var(--slate-9);
 }
