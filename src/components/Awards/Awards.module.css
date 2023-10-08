@@ -100,3 +100,51 @@
 .collapsibleContent[data-expanded] {
   animation: slideDown 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
+.weaponAwards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.weaponAward {
+  background-color: var(--slate-1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 12px;
+}
+
+.weaponAward:hover {
+  background-color: var(--slate-2);
+}
+
+.weaponAwardTitle {
+  color: #fff;
+  text-shadow: 2px 2px 0px #000;
+  font-size: 12px;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.weaponImageWrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.weaponValue {
+  font-size: 24px;
+  margin: 0;
+  text-align: center;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.weaponName {
+  font-size: 16px;
+  text-align: center;
+  margin: 12px 0 0;
+  text-shadow: 2px 2px 0px #000;
+}

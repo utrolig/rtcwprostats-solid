@@ -16,13 +16,29 @@ export type Award = {
   }[];
 };
 
+export type WeaponAward = Award & {
+  weapon: Weapon;
+};
+
+const getPlayerNameById = (playerId: string, groups: GroupsResponse) => {
+  for (const playerObj of groups.statsall) {
+    const [currentId] = Object.keys(playerObj);
+
+    if (currentId === playerId) {
+      return playerObj[currentId].alias;
+    }
+  }
+
+  return "";
+};
+
 const getWeaponAward = (
   name: string,
   description: string,
   weapon: Weapon | Weapon[],
   groups: GroupsResponse
 ) => {
-  return groups.wstatsall.reduce(
+  const award = groups.wstatsall.reduce(
     (acc, player, idx, arr) => {
       const [playerId] = Object.keys(player);
       const wstats = player[playerId];
@@ -35,7 +51,7 @@ const getWeaponAward = (
         ? weapon.reduce((acc, w) => acc + getCountForWeapon(w), 0)
         : getCountForWeapon(weapon);
 
-      const [playerName] = groups.elos[playerId];
+      const playerName = getPlayerNameById(playerId, groups);
 
       if (value && playerName) {
         acc.all.push({ value, name: playerName });
@@ -48,8 +64,20 @@ const getWeaponAward = (
 
       return acc;
     },
-    { name, all: [], description, winner: { value: 0, name: "" } } as Award
+    {
+      name,
+      all: [],
+      description,
+      winner: { value: 0, name: "" },
+      weapon,
+    } as WeaponAward
   );
+
+  if (!award.winner) {
+    return;
+  }
+
+  return award;
 };
 
 export const getWeaponAwards = (groups: GroupsResponse) => {
@@ -79,7 +107,7 @@ export const getWeaponAwards = (groups: GroupsResponse) => {
     groups
   );
   const indianSmokeMessenger = getWeaponAward(
-    "Best Indian smoke-messenger",
+    "Best smoker",
     "frags",
     "Airstrike",
     groups
@@ -108,7 +136,7 @@ export const getWeaponAwards = (groups: GroupsResponse) => {
     godOfWar,
     silentKiller,
     johnWayne,
-  ];
+  ].filter(Boolean) as WeaponAward[];
 };
 
 const getTerminatorAward = (players: PlayerStatsFull[]): Award => {
