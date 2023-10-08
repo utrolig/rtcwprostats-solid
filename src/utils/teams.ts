@@ -90,6 +90,30 @@ const matchSummaryToFactions = (
   };
 };
 
+export const groupsResponseToPlayers = (groupsResponse: GroupsResponse) => {
+  const players = [];
+
+  const statsAll = groupsResponse.statsall;
+
+  for (const player of statsAll) {
+    const [playerId] = Object.keys(player);
+    const playerStats = player[playerId] as PlayerStatsFull;
+    playerStats.id = playerId;
+    playerStats.class = groupsResponse.classes[playerId];
+
+    for (const element of groupsResponse.wstatsall) {
+      const [statsPlayerId] = Object.keys(element);
+      if (statsPlayerId === playerId) {
+        playerStats.weaponStats = element[statsPlayerId];
+        break;
+      }
+    }
+    players.push(playerStats);
+  }
+
+  return players;
+};
+
 export const groupsResponseToTeams = (
   groupsResponse: GroupsResponse
 ): {

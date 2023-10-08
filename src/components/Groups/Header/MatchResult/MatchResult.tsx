@@ -63,7 +63,8 @@ export const MatchResult: Component<MatchResultProps> = (props) => {
       <div class={styles.maps}>
         <span>{actualResult().maps[0]}</span>
         <Show when={actualResult().maps.filter(Boolean).length > 1}>
-          <span> / {actualResult().maps[1]}</span>
+          <span>/</span>
+          <span>{actualResult().maps[1]}</span>
         </Show>
       </div>
     </div>

@@ -28,6 +28,7 @@
 
 .maps {
   display: flex;
+  gap: 4px;
 }
 
 .winner {
