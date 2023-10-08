@@ -21,15 +21,7 @@ export type WeaponAward = Award & {
 };
 
 const getPlayerNameById = (playerId: string, groups: GroupsResponse) => {
-  for (const playerObj of groups.statsall) {
-    const [currentId] = Object.keys(playerObj);
-
-    if (currentId === playerId) {
-      return playerObj[currentId].alias;
-    }
-  }
-
-  return "";
+  return groups.elos[playerId][0];
 };
 
 const getWeaponAward = (
@@ -139,11 +131,14 @@ export const getWeaponAwards = (groups: GroupsResponse) => {
   ].filter(Boolean) as WeaponAward[];
 };
 
-const getTerminatorAward = (players: PlayerStatsFull[]): Award => {
+const getTerminatorAward = (
+  players: PlayerStatsFull[],
+  groups: GroupsResponse
+): Award => {
   const all = players
     .map((player) => ({
       count: getKdr(player),
-      name: player.alias,
+      name: getPlayerNameById(player.id, groups),
     }))
     .sort((a, b) => b.count - a.count)
     .map((player) => ({ ...player, value: player.count.toFixed(2) }));
@@ -156,11 +151,14 @@ const getTerminatorAward = (players: PlayerStatsFull[]): Award => {
   };
 };
 
-const getSlaughterhouseAward = (players: PlayerStatsFull[]): Award => {
+const getSlaughterhouseAward = (
+  players: PlayerStatsFull[],
+  groups: GroupsResponse
+): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.kills,
-      name: player.alias,
+      name: getPlayerNameById(player.id, groups),
     }))
     .sort((a, b) => b.value - a.value);
 
@@ -174,11 +172,14 @@ const getSlaughterhouseAward = (players: PlayerStatsFull[]): Award => {
   };
 };
 
-const getSlaughterhouseLamaAward = (players: PlayerStatsFull[]): Award => {
+const getSlaughterhouseLamaAward = (
+  players: PlayerStatsFull[],
+  groups: GroupsResponse
+): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.deaths,
-      name: player.alias,
+      name: getPlayerNameById(player.id, groups),
     }))
     .sort((a, b) => b.value - a.value);
 
@@ -192,11 +193,14 @@ const getSlaughterhouseLamaAward = (players: PlayerStatsFull[]): Award => {
   };
 };
 
-const getSlyFoxAward = (players: PlayerStatsFull[]): Award => {
+const getSlyFoxAward = (
+  players: PlayerStatsFull[],
+  groups: GroupsResponse
+): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.deaths,
-      name: player.alias,
+      name: getPlayerNameById(player.id, groups),
     }))
     .sort((a, b) => a.value - b.value);
   const winner = all[0];
@@ -209,11 +213,14 @@ const getSlyFoxAward = (players: PlayerStatsFull[]): Award => {
   };
 };
 
-const getHarakiriAward = (players: PlayerStatsFull[]): Award => {
+const getHarakiriAward = (
+  players: PlayerStatsFull[],
+  groups: GroupsResponse
+): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.suicides,
-      name: player.alias,
+      name: getPlayerNameById(player.id, groups),
     }))
     .sort((a, b) => b.value - a.value);
   const winner = all[0];
@@ -225,11 +232,14 @@ const getHarakiriAward = (players: PlayerStatsFull[]): Award => {
   };
 };
 
-const getDesecratorAward = (players: PlayerStatsFull[]): Award => {
+const getDesecratorAward = (
+  players: PlayerStatsFull[],
+  groups: GroupsResponse
+): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.gibs,
-      name: player.alias,
+      name: getPlayerNameById(player.id, groups),
     }))
     .sort((a, b) => b.value - a.value);
   const winner = all[0];
@@ -245,12 +255,12 @@ const getDesecratorAward = (players: PlayerStatsFull[]): Award => {
 const getMainAwards = (groups: GroupsResponse) => {
   const players = groupsResponseToPlayers(groups);
 
-  const terminator = getTerminatorAward(players);
-  const slaughterhouse = getSlaughterhouseAward(players);
-  const slaughterhouseLama = getSlaughterhouseLamaAward(players);
-  const slyFox = getSlyFoxAward(players);
-  const harakiri = getHarakiriAward(players);
-  const desecrator = getDesecratorAward(players);
+  const terminator = getTerminatorAward(players, groups);
+  const slaughterhouse = getSlaughterhouseAward(players, groups);
+  const slaughterhouseLama = getSlaughterhouseLamaAward(players, groups);
+  const slyFox = getSlyFoxAward(players, groups);
+  const harakiri = getHarakiriAward(players, groups);
+  const desecrator = getDesecratorAward(players, groups);
 
   return [
     terminator,
