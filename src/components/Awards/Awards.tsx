@@ -1,15 +1,15 @@
-import { GroupsResponse } from "~/api/types";
+import { GroupsResponse, MatchStatsResponse } from "~/api/types";
 import styles from "./Awards.module.css";
 import { For } from "solid-js";
 import { getAwards } from "~/utils/awards";
 import { Collapsible } from "@kobalte/core";
 
 export type AwardsProps = {
-  groupsResponse: GroupsResponse;
+  data: MatchStatsResponse;
 };
 
 export const Awards = (props: AwardsProps) => {
-  const awards = () => getAwards(props.groupsResponse);
+  const awards = () => getAwards(props.data);
 
   return (
     <div class={styles.awards}>

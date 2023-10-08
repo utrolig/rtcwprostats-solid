@@ -1,5 +1,16 @@
-import { GroupsResponse, Team, WStatsAll } from "~/api/types";
-import { PlayerStatsFull, PlayerStatsWithClass } from "./teams";
+import {
+  Faction,
+  GroupsResponse,
+  MatchStatsResponse,
+  Team,
+  WStatsAll,
+} from "~/api/types";
+import {
+  MatchStatPlayerStat,
+  PlayerStatsFull,
+  PlayerStatsWithClass,
+  PlayerStatsWithId,
+} from "./teams";
 import { SortDir, TableRowSortKey, getAccuracy, getAdd, getKdr } from "./utils";
 
 export const getWstatsForPlayer = (playerId: string, wstats: WStatsAll) => {
@@ -11,7 +22,38 @@ export const getWstatsForPlayer = (playerId: string, wstats: WStatsAll) => {
   }
 };
 
-export const getPlayersFromTeam = (
+export const getPlayersFromTeamForMatch = (
+  faction: Faction | "both",
+  matchStatResponse: MatchStatsResponse
+): MatchStatPlayerStat[] => {
+  const players = matchStatResponse.statsall.reduce((acc, stats) => {
+    const [playerId] = Object.keys(stats);
+
+    const playerStats = stats[playerId];
+    const wstats = getWstatsForPlayer(playerId, matchStatResponse.wstatsall);
+
+    if (wstats) {
+      (playerStats as PlayerStatsFull).weaponStats = wstats;
+    }
+
+    (playerStats as PlayerStatsFull).id = playerId;
+
+    if (faction === "both") {
+      acc.push(playerStats as PlayerStatsFull);
+      return acc;
+    }
+
+    if ((playerStats.team as Faction) === faction) {
+      acc.push(playerStats as PlayerStatsFull);
+    }
+
+    return acc;
+  }, [] as PlayerStatsFull[]);
+
+  return players;
+};
+
+export const getPlayersFromTeamForGroups = (
   team: Team | "both",
   groupsResponse: GroupsResponse
 ): PlayerStatsFull[] => {
@@ -45,7 +87,7 @@ export const getPlayersFromTeam = (
 
 export const playersByKeyAndDir =
   (sortKey: TableRowSortKey, dir: SortDir) =>
-  (a: PlayerStatsWithClass, b: PlayerStatsWithClass) => {
+  (a: PlayerStatsWithId, b: PlayerStatsWithId) => {
     switch (sortKey) {
       case TableRowSortKey.Accuracy: {
         return (getAccuracy(a) - getAccuracy(b)) * (dir === "asc" ? 1 : -1);

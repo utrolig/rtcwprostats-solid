@@ -1,6 +1,6 @@
-import { Elos, Faction } from "~/api/types";
+import { Classes, Elos, Faction, GameClass } from "~/api/types";
 import styles from "./TablePlayerRow.module.css";
-import { PlayerStatsFull, PlayerStatsWithClass } from "~/utils/teams";
+import { MatchStatPlayerStat } from "~/utils/teams";
 import { eloToRank, rankColors } from "~/utils/elo";
 import { Show, createSignal } from "solid-js";
 import { classIcons } from "~/assets/classIcons";
@@ -10,8 +10,9 @@ import { Collapsible } from "@kobalte/core";
 import { factionImages } from "~/assets/factionImages";
 
 type TablePlayerRowProps = {
-  player: PlayerStatsFull;
-  playerElos: Elos;
+  player: MatchStatPlayerStat;
+  playerClass?: GameClass;
+  playerElos?: Elos;
   isOdd: boolean;
   faction?: Faction;
 };
@@ -27,10 +28,15 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
           classList={{ [styles.row]: true, [styles.odd]: props.isOdd }}
         >
           <div classList={{ [styles.cell]: true, [styles.name]: true }}>
-            <img
-              src={classIcons[props.player.class]}
-              class={styles.classIcon}
-            />
+            <Show
+              when={props.playerClass}
+              keyed
+              fallback={<div class={styles.classIcon} />}
+            >
+              {(playerClass) => (
+                <img src={classIcons[playerClass]} class={styles.classIcon} />
+              )}
+            </Show>
             <div class={styles.nameContainer}>
               <h4>
                 <span>{props.player.alias}</span>
@@ -44,23 +50,29 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
                 </Show>
               </h4>
               <div class={styles.rank}>
-                <Show when={getElo(props.player.id, props.playerElos) > 0}>
-                  <span
-                    style={{
-                      color:
-                        rankColors[
-                          eloToRank(getElo(props.player.id, props.playerElos))
-                        ],
-                    }}
-                  >
-                    {getElo(props.player.id, props.playerElos)}
-                  </span>
-                  <span>
-                    {eloToRank(getElo(props.player.id, props.playerElos))}
-                  </span>
-                </Show>
-                <Show when={getElo(props.player.id, props.playerElos) <= 0}>
-                  <span>Unranked</span>
+                <Show when={props.playerElos} keyed>
+                  {(playerElos) => (
+                    <>
+                      <Show when={getElo(props.player.id, playerElos) > 0}>
+                        <span
+                          style={{
+                            color:
+                              rankColors[
+                                eloToRank(getElo(props.player.id, playerElos))
+                              ],
+                          }}
+                        >
+                          {getElo(props.player.id, playerElos)}
+                        </span>
+                        <span>
+                          {eloToRank(getElo(props.player.id, playerElos))}
+                        </span>
+                      </Show>
+                      <Show when={getElo(props.player.id, playerElos) <= 0}>
+                        <span>Unranked</span>
+                      </Show>
+                    </>
+                  )}
                 </Show>
               </div>
             </div>

@@ -1,16 +1,18 @@
 import { Show, createResource } from "solid-js";
-import { Title, useParams, useRouteData } from "solid-start";
+import { Outlet, Title, useParams, useRouteData } from "solid-start";
 import { api } from "~/api";
 import { GroupsLayout } from "~/components/Layouts/Group";
 import GroupsHeader from "~/components/Groups/Header";
-import GroupsBody from "~/components/Groups/Body";
+import { GroupsResponseContext } from "~/utils/groupsContext";
+import { GroupsOutletBody } from "~/components/Groups/Body/GroupOutletBody/GroupsOutletBody";
+import { MatchSelector } from "~/components/Groups/Body/MatchSelector/MatchSelector";
 
 export function routeData() {
   const { groupId } = useParams<{ groupId: string }>();
 
   const [data] = createResource(async () => {
-    const response = await api.fetchGroup(groupId);
-    return response;
+    const groupsResponse = await api.fetchGroup(groupId);
+    return groupsResponse;
   });
 
   return { data };
@@ -19,18 +21,25 @@ export function routeData() {
 export default function Group() {
   const { data } = useRouteData<typeof routeData>();
   return (
-    <>
-      <Title>{data()?.match_id}</Title>
-      <GroupsLayout>
-        <Show when={data()}>
-          {(data) => (
-            <>
-              <GroupsHeader data={data()} />
-              <GroupsBody data={data()} />
-            </>
-          )}
-        </Show>
-      </GroupsLayout>
-    </>
+    <Show when={data()} keyed>
+      {(data) => (
+        <GroupsResponseContext.Provider value={data}>
+          <Title>{data.match_id}</Title>
+          <GroupsLayout>
+            <Show when={data}>
+              {(data) => (
+                <>
+                  <GroupsHeader groups={data()} />
+                  <GroupsOutletBody>
+                    <MatchSelector groups={data()} />
+                    <Outlet />
+                  </GroupsOutletBody>
+                </>
+              )}
+            </Show>
+          </GroupsLayout>
+        </GroupsResponseContext.Provider>
+      )}
+    </Show>
   );
 }

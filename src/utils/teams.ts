@@ -3,6 +3,7 @@ import {
   GameClass,
   GroupsResponse,
   Guid,
+  MatchStatsResponse,
   MatchSummary,
   PlayerStats,
   Team,
@@ -15,6 +16,11 @@ export type PlayerStatsWithId = PlayerStats & {
 
 export type PlayerStatsWithClass = PlayerStatsWithId & {
   class: GameClass;
+};
+
+export type MatchStatPlayerStat = PlayerStats & {
+  id: Guid;
+  weaponStats: WStats[];
 };
 
 export type PlayerStatsFull = PlayerStats & {
@@ -90,18 +96,19 @@ const matchSummaryToFactions = (
   };
 };
 
-export const groupsResponseToPlayers = (groupsResponse: GroupsResponse) => {
+export const groupsResponseToPlayers = (
+  matchStatResponse: MatchStatsResponse
+) => {
   const players = [];
 
-  const statsAll = groupsResponse.statsall;
+  const statsAll = matchStatResponse.statsall;
 
   for (const player of statsAll) {
     const [playerId] = Object.keys(player);
-    const playerStats = player[playerId] as PlayerStatsFull;
+    const playerStats = player[playerId] as MatchStatPlayerStat;
     playerStats.id = playerId;
-    playerStats.class = groupsResponse.classes[playerId];
 
-    for (const element of groupsResponse.wstatsall) {
+    for (const element of matchStatResponse.wstatsall) {
       const [statsPlayerId] = Object.keys(element);
       if (statsPlayerId === playerId) {
         playerStats.weaponStats = element[statsPlayerId];
@@ -112,6 +119,46 @@ export const groupsResponseToPlayers = (groupsResponse: GroupsResponse) => {
   }
 
   return players;
+};
+
+export const matchStatResponseToTeams = (
+  matchStatResponse: MatchStatsResponse
+): {
+  teamA: MatchStatPlayerStat[];
+  teamB: MatchStatPlayerStat[];
+  factions: ReturnType<typeof matchSummaryToFactions>;
+} => {
+  const teamA = [];
+  const teamB = [];
+
+  const statsAll = matchStatResponse.statsall;
+  const factions = matchSummaryToFactions(matchStatResponse.match_summary);
+
+  for (const player of statsAll) {
+    const [playerId] = Object.keys(player);
+    const playerStats = player[playerId] as MatchStatPlayerStat;
+    playerStats.id = playerId;
+
+    for (const element of matchStatResponse.wstatsall) {
+      const [statsPlayerId] = Object.keys(element);
+      if (statsPlayerId === playerId) {
+        playerStats.weaponStats = element[statsPlayerId];
+        break;
+      }
+    }
+
+    if (playerStats.team === "TeamA") {
+      teamA.push(playerStats);
+    } else {
+      teamB.push(playerStats);
+    }
+  }
+
+  return {
+    teamA,
+    teamB,
+    factions,
+  };
 };
 
 export const groupsResponseToTeams = (

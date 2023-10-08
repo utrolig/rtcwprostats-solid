@@ -1,5 +1,5 @@
 import { Elos, PlayerStats, WStats } from "~/api/types";
-import { PlayerStatsWithClass } from "./teams";
+import { PlayerStatsWithClass, PlayerStatsWithId } from "./teams";
 
 export const TableRowSortKey = {
   Accuracy: "accuracy",
@@ -23,15 +23,15 @@ export const getElo = (playerId: string, playerElos: Elos) => {
   return playerElos[playerId]?.[1];
 };
 
-export const getKdr = (player: PlayerStatsWithClass) => {
+export const getKdr = (player: PlayerStatsWithId) => {
   return player.categories.kills / player.categories.deaths;
 };
 
-export const getAdd = (player: PlayerStatsWithClass) => {
+export const getAdd = (player: PlayerStatsWithId) => {
   return player.categories.damagegiven / player.categories.deaths;
 };
 
-export const getAccuracy = (player: PlayerStatsWithClass) => {
+export const getAccuracy = (player: PlayerStatsWithId) => {
   return (player.categories.hits / player.categories.shots) * 100;
 };
 

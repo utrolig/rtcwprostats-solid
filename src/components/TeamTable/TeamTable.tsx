@@ -1,20 +1,20 @@
-import { Faction, GroupsResponse } from "~/api/types";
+import { Elos, Faction, GroupsResponse } from "~/api/types";
 import styles from "./TeamTable.module.css";
 import { factionImages } from "~/assets/factionImages";
 import { toReadableFaction } from "~/utils/faction";
 import { TablePlayerRow } from "./TablePlayerRow/TablePlayerRow";
-import { PlayerStatsFull } from "~/utils/teams";
+import { MatchStatPlayerStat, PlayerStatsFull } from "~/utils/teams";
 import { For, Show } from "solid-js";
 import { TablePlayerHeaderRow } from "./TablePlayerRow/TablePlayerHeaderRow";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
 
 type TeamTableProps = {
-  groupsData: GroupsResponse;
+  elos?: Elos;
   faction?: Faction;
   sortDir: SortDir;
   sortKey: TableRowSortKey;
   onSortClicked: (key: TableRowSortKey) => void;
-  players: PlayerStatsFull[];
+  players: MatchStatPlayerStat[] | PlayerStatsFull[];
 };
 
 export const TeamTable = (props: TeamTableProps) => {
@@ -40,8 +40,9 @@ export const TeamTable = (props: TeamTableProps) => {
           {(player, idx) => (
             <TablePlayerRow
               isOdd={idx() % 2 === 0}
-              playerElos={props.groupsData.elos}
+              playerElos={props.elos}
               player={player}
+              playerClass={(player as PlayerStatsFull).class}
             />
           )}
         </For>

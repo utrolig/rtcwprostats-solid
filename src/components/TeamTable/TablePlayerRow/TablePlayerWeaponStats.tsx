@@ -30,10 +30,6 @@ export const TablePlayerWeaponStats = (props: TablePlayerWeaponStatsProps) => {
     return "N/A";
   };
 
-  createEffect(() => {
-    console.log(props.weaponStats);
-  });
-
   return (
     <div classList={{ [styles.container]: true, [styles.odd]: props.isOdd }}>
       <div classList={{ [styles.weaponStat]: true, [styles.header]: true }}>

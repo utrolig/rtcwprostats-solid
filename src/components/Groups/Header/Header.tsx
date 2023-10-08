@@ -7,14 +7,14 @@ import { MatchResult } from "./MatchResult/MatchResult";
 import { Maps } from "./Maps/Maps";
 
 export type HeaderProps = {
-  data: GroupsResponse;
+  groups: GroupsResponse;
 };
 
 export default function Header(props: HeaderProps) {
   const formattedData = createMemo(() => {
-    const teams = groupsResponseToTeams(props.data);
-    const result = getMatchResult(props.data.match_summary);
-    const maps = getMaps(props.data.match_summary);
+    const teams = groupsResponseToTeams(props.groups);
+    const result = getMatchResult(props.groups.match_summary);
+    const maps = getMaps(props.groups.match_summary);
     return { teams, result, maps };
   });
 

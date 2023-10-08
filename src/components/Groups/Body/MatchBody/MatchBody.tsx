@@ -1,18 +1,21 @@
-import { Faction, GroupsResponse } from "~/api/types";
-import styles from "./Body.module.css";
-import { For, Show, createSignal } from "solid-js";
-import { TeamTable } from "~/components/TeamTable/TeamTable";
-import { SortDir, TableRowSortKey } from "~/utils/utils";
-import { getTeamFromFaction, groupsResponseToTeams } from "~/utils/teams";
-import { getPlayersFromTeam, playersByKeyAndDir } from "~/utils/players";
+import { Show, createSignal, createEffect } from "solid-js";
+import styles from "./MatchBody.module.css";
 import { Toggle } from "~/components/Toggle/Toggle";
+import { TeamTable } from "~/components/TeamTable/TeamTable";
+import {
+  getPlayersFromTeamForMatch,
+  playersByKeyAndDir,
+} from "~/utils/players";
+import { SortDir, TableRowSortKey } from "~/utils/utils";
+import { Faction, MatchStatsResponse } from "~/api/types";
+import { getTeamFromFaction, matchStatResponseToTeams } from "~/utils/teams";
 import { Awards } from "~/components/Awards/Awards";
 
-export type BodyProps = {
-  data: GroupsResponse;
+export type MatchBodyProps = {
+  data: MatchStatsResponse;
 };
 
-export default function Body(props: BodyProps) {
+export const MatchBody = (props: MatchBodyProps) => {
   const [combineStats, setCombineStats] = createSignal(false);
   const [sortKey, setSortKey] = createSignal<TableRowSortKey>(
     TableRowSortKey.Kdr
@@ -34,38 +37,23 @@ export default function Body(props: BodyProps) {
   };
 
   const getTeam = (faction: Faction) => {
-    const teams = groupsResponseToTeams(props.data);
+    const teams = matchStatResponseToTeams(props.data);
     return getTeamFromFaction(teams.factions, faction);
   };
 
   const getPlayers = (faction: Faction | "both") => {
     const byKeyAndDir = playersByKeyAndDir(sortKey(), sortDir());
     if (faction === "both") {
-      const players = getPlayersFromTeam("both", props.data);
+      const players = getPlayersFromTeamForMatch("both", props.data);
       return [...players].sort(byKeyAndDir);
     }
 
-    const team = getTeam(faction);
-    const players = getPlayersFromTeam(team, props.data);
+    const players = getPlayersFromTeamForMatch(faction, props.data);
     return [...players].sort(byKeyAndDir);
   };
 
   return (
-    <div class={styles.body}>
-      <ul class={styles.tabs}>
-        <li class={styles.active}>
-          <h6>Match</h6>
-        </li>
-
-        <For each={Object.entries(props.data.match_summary.results)}>
-          {([_matchId, result], idx) => (
-            <li>
-              <h6>Round {idx() + 1}</h6>
-              <p>{result.map}</p>
-            </li>
-          )}
-        </For>
-      </ul>
+    <>
       <div
         classList={{
           [styles.statsWrapper]: true,
@@ -81,7 +69,6 @@ export default function Body(props: BodyProps) {
         <Show when={combineStats()}>
           <TeamTable
             players={getPlayers("both")}
-            groupsData={props.data}
             onSortClicked={onSortClicked}
             sortDir={sortDir()}
             sortKey={sortKey()}
@@ -93,7 +80,6 @@ export default function Body(props: BodyProps) {
             sortKey={sortKey()}
             sortDir={sortDir()}
             onSortClicked={onSortClicked}
-            groupsData={props.data}
             faction={"Allied"}
           />
           <TeamTable
@@ -101,12 +87,11 @@ export default function Body(props: BodyProps) {
             sortKey={sortKey()}
             sortDir={sortDir()}
             onSortClicked={onSortClicked}
-            groupsData={props.data}
             faction={"Axis"}
           />
         </Show>
       </div>
-      <Awards groupsResponse={props.data} />
-    </div>
+      <Awards data={props.data} />
+    </>
   );
-}
+};

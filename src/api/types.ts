@@ -110,3 +110,5 @@ export type GroupsResponse = {
   classes: Classes;
   wstatsall: WStatsAll;
 };
+
+export type MatchStatsResponse = Omit<GroupsResponse, "classes" | "elos">;
