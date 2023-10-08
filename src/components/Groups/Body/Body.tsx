@@ -106,7 +106,7 @@ export default function Body(props: BodyProps) {
           />
         </Show>
       </div>
-      <Awards />
+      <Awards groupsResponse={props.data} />
     </div>
   );
 }
