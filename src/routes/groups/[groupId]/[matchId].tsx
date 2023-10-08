@@ -6,13 +6,7 @@ import { MatchBody } from "~/components/Groups/Body/MatchBody/MatchBody";
 export function routeData() {
   const params = useParams<{ matchId: string }>();
 
-  const [data] = createResource(
-    () => params.matchId,
-    async (matchId: string) => {
-      const matchStatsResponse = await api.fetchMatch(matchId);
-      return matchStatsResponse;
-    }
-  );
+  const [data] = createResource(() => params.matchId, api.fetchMatch);
 
   return { data };
 }
