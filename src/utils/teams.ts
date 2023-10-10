@@ -3,6 +3,7 @@ import {
   GameClass,
   GroupsResponse,
   Guid,
+  MatchResult,
   MatchStatsResponse,
   MatchSummary,
   PlayerStats,
@@ -57,43 +58,48 @@ export const getMatchResult = (
 const matchSummaryToFactions = (
   matchSummary: MatchSummary
 ): Record<Team, Faction> => {
-  const [firstGameKey] = Object.keys(matchSummary.results).sort();
-  const firstGame = matchSummary.results[firstGameKey];
+  const getWinner = (result: MatchResult) => {
+    const { winner, winnerAB } = result;
+    if (winner === "Allied" && winnerAB === "TeamA") {
+      return {
+        TeamA: "Allied",
+        TeamB: "Axis",
+      } as const;
+    }
 
-  const { winner, winnerAB } = firstGame;
+    if (winner === "Allied" && winnerAB === "TeamB") {
+      return {
+        TeamA: "Axis",
+        TeamB: "Allied",
+      } as const;
+    }
 
-  if (winner === "Allied" && winnerAB === "TeamA") {
-    return {
-      TeamA: "Axis",
-      TeamB: "Allied",
-    };
-  }
+    if (winner === "Axis" && winnerAB === "TeamA") {
+      return {
+        TeamA: "Axis",
+        TeamB: "Allied",
+      } as const;
+    }
 
-  if (winner === "Allied" && winnerAB === "TeamB") {
-    return {
-      TeamA: "Allied",
-      TeamB: "Axis",
-    };
-  }
-
-  if (winner === "Axis" && winnerAB === "TeamA") {
-    return {
-      TeamA: "Allied",
-      TeamB: "Axis",
-    };
-  }
-
-  if (winner === "Axis" && winnerAB === "TeamB") {
-    return {
-      TeamA: "Axis",
-      TeamB: "Allied",
-    };
-  }
-
-  return {
-    TeamA: "Allied",
-    TeamB: "Axis",
+    if (winner === "Axis" && winnerAB === "TeamB") {
+      return {
+        TeamA: "Allied",
+        TeamB: "Axis",
+      } as const;
+    }
   };
+
+  const gameKeys = Object.keys(matchSummary.results).sort();
+
+  let keyIdx = 0;
+  let teams;
+
+  while (!teams) {
+    teams = getWinner(matchSummary.results[gameKeys[keyIdx]]);
+    keyIdx += 1;
+  }
+
+  return teams;
 };
 
 export const groupsResponseToPlayers = (
