@@ -257,6 +257,26 @@ const getDesecratorAward = (
   };
 };
 
+const getAimbotAward = (
+  players: MatchStatPlayerStat[],
+  match: MatchStatsResponse
+): Award => {
+  const all = players
+    .map((player) => ({
+      value: player.categories.headshots,
+      name: getPlayerNameById(player.id, match),
+    }))
+    .sort((a, b) => b.value - a.value);
+  const winner = all[0];
+
+  return {
+    name: "Aimbot",
+    description: "most headshots",
+    winner,
+    all,
+  };
+};
+
 const getMainAwards = (match: MatchStatsResponse) => {
   const players = matchResponseToPlayers(match);
 
@@ -266,6 +286,7 @@ const getMainAwards = (match: MatchStatsResponse) => {
   const slyFox = getSlyFoxAward(players, match);
   const harakiri = getHarakiriAward(players, match);
   const desecrator = getDesecratorAward(players, match);
+  const aimbot = getAimbotAward(players, match);
 
   return [
     terminator,
@@ -274,6 +295,7 @@ const getMainAwards = (match: MatchStatsResponse) => {
     slyFox,
     harakiri,
     desecrator,
+    aimbot,
   ];
 };
 

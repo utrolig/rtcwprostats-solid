@@ -120,6 +120,7 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
               [styles.cell]: true,
               [styles.damageDone]: true,
               [styles.number]: true,
+              [styles.green]: true,
             }}
           >
             {props.player.categories.damagegiven.toFixed(0)}
@@ -129,6 +130,7 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
               [styles.cell]: true,
               [styles.damageReceived]: true,
               [styles.number]: true,
+              [styles.red]: true,
             }}
           >
             {props.player.categories.damagereceived.toFixed(0)}
