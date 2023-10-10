@@ -3,7 +3,7 @@ import assault from "./assault.jpg";
 import base from "./base.jpg";
 import beach from "./beach.jpg";
 import bremen from "./bremen.jpg";
-import brewdog from "./brewdog.jpg";
+import bunker from "./brewdog.jpg";
 import chateau from "./chateau.jpg";
 import escape from "./escape.jpg";
 import frostafari from "./frostafari.jpg";
@@ -23,7 +23,7 @@ const mapRecord: Record<string, string> = {
   base,
   beach,
   bremen,
-  brewdog,
+  bunker,
   chateau,
   escape,
   frostafari,
