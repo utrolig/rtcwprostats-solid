@@ -277,7 +277,7 @@ const getAimbotAward = (
   };
 };
 
-const getCrosshairConnoiseur = (
+const getCrosshairConnoisseur = (
   players: MatchStatPlayerStat[],
   match: MatchStatsResponse
 ): Award => {
@@ -291,7 +291,7 @@ const getCrosshairConnoiseur = (
   const winner = all[0];
 
   return {
-    name: "Crosshair Connoiseur",
+    name: "Crosshair Connoisseur",
     description: "best accuracy",
     winner,
     all,
@@ -308,7 +308,7 @@ const getMainAwards = (match: MatchStatsResponse) => {
   const harakiri = getHarakiriAward(players, match);
   const desecrator = getDesecratorAward(players, match);
   const aimbot = getAimbotAward(players, match);
-  const crosshairConnoiseur = getCrosshairConnoiseur(players, match);
+  const crosshairConnoiseur = getCrosshairConnoisseur(players, match);
 
   return [
     terminator,
