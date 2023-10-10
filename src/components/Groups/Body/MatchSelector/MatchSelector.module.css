@@ -2,12 +2,15 @@
   display: flex;
   list-style: none;
   gap: 48px;
-  margin: 0;
-  padding: 24px 48px;
+  padding-bottom: 24px;
+  margin: 24px 48px;
+  overflow-x: auto;
 }
 
 .tabs li {
   cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
 }
 
 .tabs li h6 {

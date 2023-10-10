@@ -142,6 +142,7 @@
 }
 
 .cell.damageDone {
+  color: var(--success);
   justify-content: flex-end;
   width: 100px;
 }
