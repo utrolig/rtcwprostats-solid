@@ -3,7 +3,7 @@ import {
   groupsResponseToPlayers as matchResponseToPlayers,
   MatchStatPlayerStat,
 } from "./teams";
-import { getKdr } from "./utils";
+import { getAccuracy, getKdr } from "./utils";
 
 export type Award = {
   name: string;
@@ -277,6 +277,27 @@ const getAimbotAward = (
   };
 };
 
+const getCrosshairConnoiseur = (
+  players: MatchStatPlayerStat[],
+  match: MatchStatsResponse
+): Award => {
+  const all = players
+    .map((player) => ({
+      value: getAccuracy(player),
+      name: getPlayerNameById(player.id, match),
+    }))
+    .sort((a, b) => b.value - a.value)
+    .map((player) => ({ ...player, value: `${player.value.toFixed(1)}%` }));
+  const winner = all[0];
+
+  return {
+    name: "Crosshair Connoiseur",
+    description: "best accuracy",
+    winner,
+    all,
+  };
+};
+
 const getMainAwards = (match: MatchStatsResponse) => {
   const players = matchResponseToPlayers(match);
 
@@ -287,6 +308,7 @@ const getMainAwards = (match: MatchStatsResponse) => {
   const harakiri = getHarakiriAward(players, match);
   const desecrator = getDesecratorAward(players, match);
   const aimbot = getAimbotAward(players, match);
+  const crosshairConnoiseur = getCrosshairConnoiseur(players, match);
 
   return [
     terminator,
@@ -296,6 +318,7 @@ const getMainAwards = (match: MatchStatsResponse) => {
     harakiri,
     desecrator,
     aimbot,
+    crosshairConnoiseur,
   ];
 };
 
