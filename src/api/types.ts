@@ -4,7 +4,14 @@ export type Timestamp = string;
 export type PlayerStatsObject = Record<string, PlayerStats>;
 export type Faction = "Axis" | "Allied";
 export type Team = "TeamA" | "TeamB";
-export type GameClass = "Medic" | "LT" | "Panzer" | "Sniper" | "Engineer";
+export type GameClass =
+  | "Medic"
+  | "LT"
+  | "Panzer"
+  | "Sniper"
+  | "Engineer"
+  | "Mixed";
+
 export type Weapon =
   | "Knife"
   | "Luger"

@@ -1,4 +1,5 @@
 import { MatchStatsResponse, Weapon } from "~/api/types";
+import { isBaiter } from "./baiters";
 import {
   groupsResponseToPlayers as matchResponseToPlayers,
   MatchStatPlayerStat,
@@ -281,7 +282,17 @@ const getCrosshairConnoisseur = (
   players: MatchStatPlayerStat[],
   match: MatchStatsResponse
 ): Award => {
+  const isNotPanzerPlayer = (player: MatchStatPlayerStat) => {
+    const panz = player.weaponStats.find((w) => w.weapon === "Panzer");
+    if (panz && panz.shots > 4) {
+      return false;
+    }
+
+    return true;
+  };
+
   const all = players
+    .filter(isNotPanzerPlayer)
     .map((player) => ({
       value: getAccuracy(player),
       name: getPlayerNameById(player.id, match),
@@ -298,6 +309,29 @@ const getCrosshairConnoisseur = (
   };
 };
 
+const getBaiter = (
+  players: MatchStatPlayerStat[],
+  match: MatchStatsResponse
+): Award | undefined => {
+  console.log(players);
+  const all = players.filter(isBaiter).map((player) => ({
+    value: ``,
+    name: getPlayerNameById(player.id, match),
+  }));
+  const winner = all[0];
+
+  if (!winner) {
+    return;
+  }
+
+  return {
+    name: "Baiter",
+    description: "baiting teammates",
+    winner,
+    all,
+  };
+};
+
 const getMainAwards = (match: MatchStatsResponse) => {
   const players = matchResponseToPlayers(match);
 
@@ -309,6 +343,7 @@ const getMainAwards = (match: MatchStatsResponse) => {
   const desecrator = getDesecratorAward(players, match);
   const aimbot = getAimbotAward(players, match);
   const crosshairConnoiseur = getCrosshairConnoisseur(players, match);
+  const baiter = getBaiter(players, match);
 
   return [
     terminator,
@@ -319,7 +354,8 @@ const getMainAwards = (match: MatchStatsResponse) => {
     desecrator,
     aimbot,
     crosshairConnoiseur,
-  ];
+    baiter,
+  ].filter(Boolean);
 };
 
 export const getAwards = (match: MatchStatsResponse) => {

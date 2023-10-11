@@ -11,4 +11,5 @@ export const classIcons: Record<GameClass, string> = {
   Medic,
   LT,
   Panzer,
+  Mixed: Medic,
 };
