@@ -1,4 +1,5 @@
 import {
+  Classes,
   Faction,
   GroupsResponse,
   MatchStatsResponse,
@@ -24,8 +25,9 @@ export const getWstatsForPlayer = (playerId: string, wstats: WStatsAll) => {
 
 export const getPlayersFromTeamForMatch = (
   faction: Faction | "both",
-  matchStatResponse: MatchStatsResponse
-): MatchStatPlayerStat[] => {
+  matchStatResponse: MatchStatsResponse,
+  classes?: Classes
+): PlayerStatsFull[] => {
   const players = matchStatResponse.statsall.reduce((acc, stats) => {
     const [playerId] = Object.keys(stats);
 
@@ -37,6 +39,7 @@ export const getPlayersFromTeamForMatch = (
     }
 
     (playerStats as PlayerStatsFull).id = playerId;
+    (playerStats as PlayerStatsFull).class = classes?.[playerId] ?? "Mixed";
 
     if (faction === "both") {
       acc.push(playerStats as PlayerStatsFull);

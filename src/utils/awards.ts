@@ -313,7 +313,6 @@ const getBaiter = (
   players: MatchStatPlayerStat[],
   match: MatchStatsResponse
 ): Award | undefined => {
-  console.log(players);
   const all = players.filter(isBaiter).map((player) => ({
     value: ``,
     name: getPlayerNameById(player.id, match),

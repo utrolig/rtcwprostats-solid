@@ -7,12 +7,13 @@ import {
   playersByKeyAndDir,
 } from "~/utils/players";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
-import { Faction, MatchStatsResponse } from "~/api/types";
-import { getTeamFromFaction, matchStatResponseToTeams } from "~/utils/teams";
+import { Classes, Elos, Faction, MatchStatsResponse } from "~/api/types";
 import { Awards } from "~/components/Awards/Awards";
 
 export type MatchBodyProps = {
   data: MatchStatsResponse;
+  elos?: Elos;
+  classes?: Classes;
 };
 
 export const MatchBody = (props: MatchBodyProps) => {
@@ -36,19 +37,22 @@ export const MatchBody = (props: MatchBodyProps) => {
     setSortKey(key);
   };
 
-  const getTeam = (faction: Faction) => {
-    const teams = matchStatResponseToTeams(props.data);
-    return getTeamFromFaction(teams.factions, faction);
-  };
-
   const getPlayers = (faction: Faction | "both") => {
     const byKeyAndDir = playersByKeyAndDir(sortKey(), sortDir());
     if (faction === "both") {
-      const players = getPlayersFromTeamForMatch("both", props.data);
+      const players = getPlayersFromTeamForMatch(
+        "both",
+        props.data,
+        props.classes
+      );
       return [...players].sort(byKeyAndDir);
     }
 
-    const players = getPlayersFromTeamForMatch(faction, props.data);
+    const players = getPlayersFromTeamForMatch(
+      faction,
+      props.data,
+      props.classes
+    );
     return [...players].sort(byKeyAndDir);
   };
 
@@ -68,6 +72,7 @@ export const MatchBody = (props: MatchBodyProps) => {
         />
         <Show when={combineStats()}>
           <TeamTable
+            elos={props.elos}
             players={getPlayers("both")}
             onSortClicked={onSortClicked}
             sortDir={sortDir()}
@@ -76,6 +81,7 @@ export const MatchBody = (props: MatchBodyProps) => {
         </Show>
         <Show when={!combineStats()}>
           <TeamTable
+            elos={props.elos}
             players={getPlayers("Allied")}
             sortKey={sortKey()}
             sortDir={sortDir()}
@@ -83,6 +89,7 @@ export const MatchBody = (props: MatchBodyProps) => {
             faction={"Allied"}
           />
           <TeamTable
+            elos={props.elos}
             players={getPlayers("Axis")}
             sortKey={sortKey()}
             sortDir={sortDir()}
