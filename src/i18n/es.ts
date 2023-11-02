@@ -36,7 +36,7 @@ export const es_dict: InternationalizationDictionary = {
   terminatorAwardDescription: "por el mayor ADR",
 
   slaughterhouseAwardName: "Matadero",
-  slaguhterHouseAwardDescription: "por el mayor número de asesinatos",
+  slaguhterhouseAwardDescription: "por el mayor número de asesinatos",
 
   slaughterhouselamaAwardName: "Llama del Matadero",
   slaughterhouselamaAwardDescription: "por el mayor número de muertes",

@@ -34,7 +34,7 @@ export const en_dict = {
   terminatorAwardDescription: "for highest KDR",
 
   slaughterhouseAwardName: "The Slaughterhouse",
-  slaguhterHouseAwardDescription: "for most kills",
+  slaguhterhouseAwardDescription: "for most kills",
 
   slaughterhouselamaAwardName: "Slaughterhouse Lama",
   slaughterhouselamaAwardDescription: "for most deaths",

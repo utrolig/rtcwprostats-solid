@@ -57,7 +57,6 @@ const getPlayerNameById = (playerId: string, match: MatchStatsResponse) => {
 
 const getWeaponAward = (
   name: (typeof GameAwards)[keyof typeof GameAwards],
-  description: string,
   weapon: Weapon | Weapon[],
   groups: MatchStatsResponse
 ) => {
@@ -90,7 +89,6 @@ const getWeaponAward = (
     {
       name,
       all: [],
-      description,
       winner: { value: 0, name: "" },
       weapon,
     } as WeaponAward
@@ -104,40 +102,19 @@ const getWeaponAward = (
 };
 
 export const getWeaponAwards = (match: MatchStatsResponse) => {
-  const masterOfMp40 = getWeaponAward(GameAwards.MP40, "frags", "MP-40", match);
-  const kingOfThompson = getWeaponAward(
-    GameAwards.Thompson,
-    "frags",
-    "Thompson",
-    match
-  );
-  const panzerLama = getWeaponAward("Panzer-Lama", "frags", "Panzer", match);
-  const sharpShooter = getWeaponAward(
-    GameAwards.Sniper,
-    "frags",
-    "Mauser",
-    match
-  );
-  const masterOfGrenade = getWeaponAward(
-    GameAwards.Grenade,
-    "frags",
-    "Grenade",
-    match
-  );
+  const masterOfMp40 = getWeaponAward(GameAwards.MP40, "MP-40", match);
+  const kingOfThompson = getWeaponAward(GameAwards.Thompson, "Thompson", match);
+  const panzerLama = getWeaponAward("Panzer-Lama", "Panzer", match);
+  const sharpShooter = getWeaponAward(GameAwards.Sniper, "Mauser", match);
+  const masterOfGrenade = getWeaponAward(GameAwards.Grenade, "Grenade", match);
   const indianSmokeMessenger = getWeaponAward(
     GameAwards.Smoker,
-    "frags",
     "Airstrike",
     match
   );
-  const godOfWar = getWeaponAward("God of war", "frags", "Artillery", match);
-  const silentKiller = getWeaponAward("Silent killer", "frags", "Knife", match);
-  const johnWayne = getWeaponAward(
-    GameAwards.Pistol,
-    "frags",
-    ["Luger", "Colt"],
-    match
-  );
+  const godOfWar = getWeaponAward("God of war", "Artillery", match);
+  const silentKiller = getWeaponAward("Silent killer", "Knife", match);
+  const johnWayne = getWeaponAward(GameAwards.Pistol, ["Luger", "Colt"], match);
 
   return [
     masterOfMp40,

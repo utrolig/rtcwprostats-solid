@@ -68,6 +68,8 @@ export const Awards = (props: AwardsProps) => {
         return t("desecratorAwardDescription");
       case "Harakiri":
         return t("harakiriAwardDescription");
+      case "Slaughterhouse":
+        return t("slaguhterhouseAwardDescription");
       case "Slaughterhouse Lama":
         return t("slaughterhouselamaAwardDescription");
       case "Sly Fox":
@@ -97,7 +99,7 @@ export const Awards = (props: AwardsProps) => {
                         <span class={styles.awardName}>
                           {award.winner.name}
                         </span>{" "}
-                        {t("for")} {getAwardDescription(award.name)}{" "}
+                        {getAwardDescription(award.name)}{" "}
                         <span class={styles.awardValue}>
                           {award.winner.value}
                         </span>
@@ -133,16 +135,17 @@ export const Awards = (props: AwardsProps) => {
                     <div class={styles.award}>
                       <p class={styles.awardText}>
                         {t("awardPrefix")}{" "}
-                        <span class={styles.awardTitle}>{award.name}</span>{" "}
+                        <span class={styles.awardTitle}>
+                          {getAwardName(award.name)}
+                        </span>{" "}
                         {t("awardedTo")}{" "}
                         <span class={styles.awardName}>
                           {award.winner.name}
                         </span>{" "}
-                        {t("for")}{" "}
                         <span class={styles.awardValue}>
                           {award.winner.value}
                         </span>{" "}
-                        {t("frags")}
+                        {t("for")} {t("frags")}
                       </p>
                     </div>
                   </Collapsible.Trigger>
