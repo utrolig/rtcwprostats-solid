@@ -1,6 +1,7 @@
 import { SortDir, TableRowSortKey } from "~/utils/utils";
 import styles from "./TablePlayerRow.module.css";
 import { SortIcon } from "~/components/SortIcon/SortIcon";
+import { useTranslation } from "~/i18n/context";
 
 type TablePlayerRowProps = {
   sortDir: SortDir;
@@ -9,6 +10,7 @@ type TablePlayerRowProps = {
 };
 
 export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
+  const t = useTranslation();
   return (
     <div classList={{ [styles.row]: true, [styles.header]: true }}>
       <div
@@ -20,7 +22,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Name}
         />
-        <span>Name</span>
+        <span>{t("name")}</span>
       </div>
 
       <div
@@ -32,7 +34,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Kdr}
         />
-        <span>KDR</span>
+        <span>{t("kdr")}</span>
       </div>
 
       <div
@@ -44,7 +46,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Kills}
         />
-        <span>Kills</span>
+        <span>{t("kills")}</span>
       </div>
 
       <div
@@ -56,7 +58,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Deaths}
         />
-        <span>Deaths</span>
+        <span>{t("deaths")}</span>
       </div>
 
       <div
@@ -72,7 +74,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Add}
         />
-        <span>ADD</span>
+        <span>{t("add")}</span>
       </div>
 
       <div
@@ -88,7 +90,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.DamageDone}
         />
-        <span>Damage done</span>
+        <span>{t("damageDone")}</span>
       </div>
 
       <div
@@ -104,7 +106,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.DamageReceived}
         />
-        <span>Damage received</span>
+        <span>{t("damageReceived")}</span>
       </div>
 
       <div
@@ -120,7 +122,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Revives}
         />
-        <span>Revives</span>
+        <span>{t("revives")}</span>
       </div>
 
       <div
@@ -136,7 +138,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Gibs}
         />
-        <span>Gibs</span>
+        <span>{t("gibs")}</span>
       </div>
 
       <div
@@ -152,7 +154,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Headshots}
         />
-        <span>Headshots</span>
+        <span>{t("headshots")}</span>
       </div>
 
       <div
@@ -168,7 +170,7 @@ export const TablePlayerHeaderRow = (props: TablePlayerRowProps) => {
           sortDir={props.sortDir}
           sortKey={TableRowSortKey.Accuracy}
         />
-        <span>Accuracy</span>
+        <span>{t("accuracy")}</span>
       </div>
     </div>
   );

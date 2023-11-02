@@ -3,6 +3,7 @@ import styles from "./TablePlayerWeaponStats.module.css";
 import { For, createEffect } from "solid-js";
 import { WeaponImagesSvg } from "~/assets/weapons/svg";
 import { WeaponsSortOrder } from "~/utils/weapons";
+import { useTranslation } from "~/i18n/context";
 
 export type TablePlayerWeaponStatsProps = {
   isOdd: boolean;
@@ -10,6 +11,7 @@ export type TablePlayerWeaponStatsProps = {
 };
 
 export const TablePlayerWeaponStats = (props: TablePlayerWeaponStatsProps) => {
+  const t = useTranslation();
   const sortedWstatsByKills = () => {
     return [...props.weaponStats].sort((a, b) => {
       return WeaponsSortOrder[a.weapon] - WeaponsSortOrder[b.weapon];
@@ -34,22 +36,22 @@ export const TablePlayerWeaponStats = (props: TablePlayerWeaponStatsProps) => {
     <div classList={{ [styles.container]: true, [styles.odd]: props.isOdd }}>
       <div classList={{ [styles.weaponStat]: true, [styles.header]: true }}>
         <div classList={{ [styles.cell]: true, [styles.weapon]: true }}>
-          Weapon
+          {t("weapon")}
         </div>
         <div classList={{ [styles.cell]: true, [styles.accuracy]: true }}>
-          Accuracy
+          {t("accuracy")}
         </div>
         <div classList={{ [styles.cell]: true, [styles.hits]: true }}>
-          Hits/Shots
+          {t("hitsShots")}
         </div>
         <div classList={{ [styles.cell]: true, [styles.kills]: true }}>
-          Kills
+          {t("kills")}
         </div>
         <div classList={{ [styles.cell]: true, [styles.deaths]: true }}>
-          Deaths
+          {t("deaths")}
         </div>
         <div classList={{ [styles.cell]: true, [styles.headshots]: true }}>
-          HS
+          {t("hs")}
         </div>
       </div>
       <For each={sortedWstatsByKills()}>

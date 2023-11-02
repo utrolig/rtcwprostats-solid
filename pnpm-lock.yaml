@@ -11,6 +11,9 @@ dependencies:
   '@kobalte/core':
     specifier: ^0.11.0
     version: 0.11.0(solid-js@1.7.11)
+  '@solid-primitives/i18n':
+    specifier: ^2.0.0
+    version: 2.0.0(solid-js@1.7.11)
   '@solidjs/meta':
     specifier: ^0.28.6
     version: 0.28.6(solid-js@1.7.11)
@@ -1759,6 +1762,14 @@ packages:
       solid-js: ^1.6.12
     dependencies:
       '@solid-primitives/utils': 6.2.1(solid-js@1.7.11)
+      solid-js: 1.7.11
+    dev: false
+
+  /@solid-primitives/i18n@2.0.0(solid-js@1.7.11):
+    resolution: {integrity: sha512-2sfhiUGl3eCPrDnPpQapbKnZ2iVo1IY6aI5vJTozc2fIf/yEM2+LlCY4PwQTf8vkM5B0Pf3jA+7vC70fR6xbmg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
       solid-js: 1.7.11
     dev: false
 

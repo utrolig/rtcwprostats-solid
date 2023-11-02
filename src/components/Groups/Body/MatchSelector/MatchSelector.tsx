@@ -1,6 +1,7 @@
 import { createEffect, For, Show } from "solid-js";
 import { A, useMatch } from "solid-start";
 import { GroupsResponse } from "~/api/types";
+import { useTranslation } from "~/i18n/context";
 import styles from "./MatchSelector.module.css";
 
 export type MatchSelectorProps = {
@@ -9,6 +10,7 @@ export type MatchSelectorProps = {
 
 export const MatchSelector = (props: MatchSelectorProps) => {
   const match = useMatch(() => "/groups/:groupId/:matchId");
+  const t = useTranslation();
 
   const getIsMatchId = () => {
     const pathMatch = match();
@@ -30,7 +32,7 @@ export const MatchSelector = (props: MatchSelectorProps) => {
           }}
           href=""
         >
-          <h6>Match</h6>
+          <h6>{t("match")}</h6>
         </A>
       </li>
 
@@ -42,7 +44,7 @@ export const MatchSelector = (props: MatchSelectorProps) => {
               class={styles.link}
               href={`${matchId}`}
             >
-              <h6>Round {idx() + 1}</h6>
+              <h6> {t("round", { round: idx() + 1 })}</h6>
               <div class={styles.map}>
                 <p>{result.map}</p>
                 <div class={styles.mapTimes}>

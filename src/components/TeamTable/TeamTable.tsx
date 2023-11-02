@@ -1,12 +1,12 @@
 import { Elos, Faction, GroupsResponse } from "~/api/types";
 import styles from "./TeamTable.module.css";
 import { factionImages } from "~/assets/factionImages";
-import { toReadableFaction } from "~/utils/faction";
 import { TablePlayerRow } from "./TablePlayerRow/TablePlayerRow";
 import { MatchStatPlayerStat, PlayerStatsFull } from "~/utils/teams";
 import { For, Show } from "solid-js";
 import { TablePlayerHeaderRow } from "./TablePlayerRow/TablePlayerHeaderRow";
 import { SortDir, TableRowSortKey } from "~/utils/utils";
+import { useTranslation } from "~/i18n/context";
 
 type TeamTableProps = {
   elos?: Elos;
@@ -18,6 +18,17 @@ type TeamTableProps = {
 };
 
 export const TeamTable = (props: TeamTableProps) => {
+  const t = useTranslation();
+
+  const factionName = (faction: Faction) => {
+    switch (faction) {
+      case "Allied":
+        return t("allies");
+      case "Axis":
+        return t("axis");
+    }
+  };
+
   return (
     <div class={styles.container}>
       <div class={styles.header}>
@@ -25,7 +36,7 @@ export const TeamTable = (props: TeamTableProps) => {
           {(faction) => (
             <>
               <img src={factionImages[faction]} class={styles.factionImage} />
-              <p>{toReadableFaction(faction)}</p>
+              <p>{factionName(faction)}</p>
             </>
           )}
         </Show>

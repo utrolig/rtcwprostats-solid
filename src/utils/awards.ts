@@ -6,9 +6,29 @@ import {
 } from "./teams";
 import { getAccuracy, getKdr } from "./utils";
 
+export const GameAwards = {
+  Terminator: "Terminator",
+  Slaugtherhouse: "Slaughterhouse",
+  SlaugtherhouseLama: "Slaughterhouse Lama",
+  SlyFox: "Sly Fox",
+  Harakiri: "Harakiri",
+  DesecratorOfCorpses: "Desecrator of corpses",
+  Aimbot: "Aimbot",
+  CrosshairConnoisseur: "Crosshair Connoisseur",
+  Baiter: "Baiter",
+  MP40: "Master of MP-40",
+  Thompson: "King of Thompson",
+  Panzer: "Panzer-Lama",
+  SilentKiller: "Silent killer",
+  Sniper: "Sharp-Shooter",
+  Grenade: "Master of grenade",
+  Smoker: "Best smoker",
+  GodofWar: "God of war",
+  Pistol: "John Wayne is Lama",
+} as const;
+
 export type Award = {
-  name: string;
-  description: string;
+  name: (typeof GameAwards)[keyof typeof GameAwards];
   winner: {
     name: string;
     value: number | string;
@@ -36,7 +56,7 @@ const getPlayerNameById = (playerId: string, match: MatchStatsResponse) => {
 };
 
 const getWeaponAward = (
-  name: string,
+  name: (typeof GameAwards)[keyof typeof GameAwards],
   description: string,
   weapon: Weapon | Weapon[],
   groups: MatchStatsResponse
@@ -84,33 +104,28 @@ const getWeaponAward = (
 };
 
 export const getWeaponAwards = (match: MatchStatsResponse) => {
-  const masterOfMp40 = getWeaponAward(
-    "Master of MP-40",
-    "frags",
-    "MP-40",
-    match
-  );
+  const masterOfMp40 = getWeaponAward(GameAwards.MP40, "frags", "MP-40", match);
   const kingOfThompson = getWeaponAward(
-    "King of Thompson",
+    GameAwards.Thompson,
     "frags",
     "Thompson",
     match
   );
   const panzerLama = getWeaponAward("Panzer-Lama", "frags", "Panzer", match);
   const sharpShooter = getWeaponAward(
-    "Sharp-Shooter",
+    GameAwards.Sniper,
     "frags",
     "Mauser",
     match
   );
   const masterOfGrenade = getWeaponAward(
-    "Master of grenade",
+    GameAwards.Grenade,
     "frags",
     "Grenade",
     match
   );
   const indianSmokeMessenger = getWeaponAward(
-    "Best smoker",
+    GameAwards.Smoker,
     "frags",
     "Airstrike",
     match
@@ -118,7 +133,7 @@ export const getWeaponAwards = (match: MatchStatsResponse) => {
   const godOfWar = getWeaponAward("God of war", "frags", "Artillery", match);
   const silentKiller = getWeaponAward("Silent killer", "frags", "Knife", match);
   const johnWayne = getWeaponAward(
-    "John Wayne is Lama",
+    GameAwards.Pistol,
     "frags",
     ["Luger", "Colt"],
     match
@@ -150,8 +165,7 @@ const getTerminatorAward = (
     .map((player) => ({ ...player, value: player.count.toFixed(2) }));
 
   return {
-    name: "Terminator",
-    description: "highest KDR",
+    name: GameAwards.Terminator,
     all,
     winner: all[0],
   };
@@ -171,8 +185,7 @@ const getSlaughterhouseAward = (
   const winner = all[0];
 
   return {
-    name: "Slaughterhouse",
-    description: "most kills",
+    name: GameAwards.Slaugtherhouse,
     all,
     winner,
   };
@@ -192,8 +205,7 @@ const getSlaughterhouseLamaAward = (
   const winner = all[0];
 
   return {
-    name: "Slaughterhouse Lama",
-    description: "most deaths",
+    name: GameAwards.SlaugtherhouseLama,
     all,
     winner,
   };
@@ -212,8 +224,7 @@ const getSlyFoxAward = (
   const winner = all[0];
 
   return {
-    name: "Sly Fox",
-    description: "least deaths",
+    name: GameAwards.SlyFox,
     all,
     winner,
   };
@@ -231,8 +242,7 @@ const getHarakiriAward = (
     .sort((a, b) => b.value - a.value);
   const winner = all[0];
   return {
-    name: "Harakiri",
-    description: "most suicides",
+    name: GameAwards.Harakiri,
     all,
     winner,
   };
@@ -251,8 +261,7 @@ const getDesecratorAward = (
   const winner = all[0];
 
   return {
-    name: "Desecrator of corpses",
-    description: "most gibs",
+    name: GameAwards.DesecratorOfCorpses,
     winner,
     all,
   };
@@ -271,8 +280,7 @@ const getAimbotAward = (
   const winner = all[0];
 
   return {
-    name: "Aimbot",
-    description: "most headshots",
+    name: GameAwards.Aimbot,
     winner,
     all,
   };
@@ -302,8 +310,7 @@ const getCrosshairConnoisseur = (
   const winner = all[0];
 
   return {
-    name: "Crosshair Connoisseur",
-    description: "best accuracy",
+    name: GameAwards.CrosshairConnoisseur,
     winner,
     all,
   };
@@ -324,8 +331,7 @@ const getBaiter = (
   }
 
   return {
-    name: "Baiter",
-    description: "baiting teammates",
+    name: GameAwards.Baiter,
     winner,
     all,
   };
@@ -344,7 +350,7 @@ const getMainAwards = (match: MatchStatsResponse) => {
   const crosshairConnoiseur = getCrosshairConnoisseur(players, match);
   const baiter = getBaiter(players, match);
 
-  return [
+  const awards = [
     terminator,
     slaughterhouse,
     slaughterhouseLama,
@@ -355,6 +361,8 @@ const getMainAwards = (match: MatchStatsResponse) => {
     crosshairConnoiseur,
     baiter,
   ].filter(Boolean);
+
+  return awards as Award[];
 };
 
 export const getAwards = (match: MatchStatsResponse) => {

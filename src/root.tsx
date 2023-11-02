@@ -9,16 +9,48 @@ import {
   Html,
   Link,
   Meta,
+  parseCookie,
   Routes,
   Scripts,
   Title,
+  useServerContext,
 } from "solid-start";
 import "./root.css";
 import "@fontsource/noto-sans";
+import { LanguageProvider } from "./i18n/context";
+import { isServer } from "solid-js/web";
+import { Locale, locales } from "./i18n";
 
 export default function Root() {
+  const event = useServerContext();
+  const cookie = () =>
+    parseCookie(
+      isServer ? event.request.headers.get("cookie") ?? "" : document.cookie
+    );
+
+  const getInitialLanguage = (): Locale["code"] => {
+    const cookieLanguage = cookie().lang as Locale["code"];
+
+    if (locales[cookieLanguage]) {
+      return cookie().lang as Locale["code"];
+    }
+
+    if (!isServer) {
+      if (navigator.language) {
+        const lang = navigator.language.split("-")[0] as Locale["code"];
+
+        if (locales[lang]) {
+          document.cookie = `lang=${lang}; path=/; max-age=31536000; samesite=strict`;
+          return lang;
+        }
+      }
+    }
+
+    return "en";
+  };
+
   return (
-    <Html lang="en">
+    <Html lang={getInitialLanguage()}>
       <Head>
         <Link
           rel="apple-touch-icon"
@@ -48,9 +80,11 @@ export default function Root() {
       <Body>
         <Suspense>
           <ErrorBoundary>
-            <Routes>
-              <FileRoutes />
-            </Routes>
+            <LanguageProvider initialLanguage={getInitialLanguage()}>
+              <Routes>
+                <FileRoutes />
+              </Routes>
+            </LanguageProvider>
           </ErrorBoundary>
         </Suspense>
         <Scripts />

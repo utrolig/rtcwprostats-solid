@@ -9,6 +9,7 @@ import {
 import { SortDir, TableRowSortKey } from "~/utils/utils";
 import { Classes, Elos, Faction, MatchStatsResponse } from "~/api/types";
 import { Awards } from "~/components/Awards/Awards";
+import { useTranslation } from "~/i18n/context";
 
 export type MatchBodyProps = {
   data: MatchStatsResponse;
@@ -17,6 +18,7 @@ export type MatchBodyProps = {
 };
 
 export const MatchBody = (props: MatchBodyProps) => {
+  const t = useTranslation();
   const [combineStats, setCombineStats] = createSignal(false);
   const [sortKey, setSortKey] = createSignal<TableRowSortKey>(
     TableRowSortKey.Kdr
@@ -66,7 +68,7 @@ export const MatchBody = (props: MatchBodyProps) => {
       >
         <Toggle
           class={styles.combineStats}
-          label="Combine stats"
+          label={t("combineStats")}
           onToggle={setCombineStats}
           isToggled={combineStats()}
         />

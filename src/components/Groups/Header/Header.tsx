@@ -5,6 +5,7 @@ import styles from "./Header.module.css";
 import { Team } from "./Team/Team";
 import { MatchResult } from "./MatchResult/MatchResult";
 import { Maps } from "./Maps/Maps";
+import { LanguageSelector } from "~/components/LanguageSelector/LanguageSelector";
 
 export type HeaderProps = {
   groups: GroupsResponse;
@@ -34,6 +35,7 @@ export default function Header(props: HeaderProps) {
         players={formattedData().teams.teamB}
       />
       <Maps maps={formattedData().maps} />
+      <LanguageSelector />
     </div>
   );
 }

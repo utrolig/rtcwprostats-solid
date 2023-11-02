@@ -10,12 +10,14 @@ import { SortDir, TableRowSortKey } from "~/utils/utils";
 import { Faction, GroupsResponse } from "~/api/types";
 import { getTeamFromFaction, groupsResponseToTeams } from "~/utils/teams";
 import { Awards } from "~/components/Awards/Awards";
+import { useTranslation } from "~/i18n/context";
 
 export type GroupBodyProps = {
   data: GroupsResponse;
 };
 
 export const GroupBody = (props: GroupBodyProps) => {
+  const t = useTranslation();
   const [combineStats, setCombineStats] = createSignal(false);
   const [sortKey, setSortKey] = createSignal<TableRowSortKey>(
     TableRowSortKey.Kdr
@@ -63,7 +65,7 @@ export const GroupBody = (props: GroupBodyProps) => {
       >
         <Toggle
           class={styles.combineStats}
-          label="Combine stats"
+          label={t("combineStats")}
           onToggle={setCombineStats}
           isToggled={combineStats()}
         />
