@@ -23,48 +23,48 @@ export const es_dict: InternationalizationDictionary = {
   hitsShots: "Toques/Tiros",
   hs: "HS",
 
-  mainAwards: "Main awards",
-  weaponAwards: "Weapon awards",
+  mainAwards: "Premios Principales",
+  weaponAwards: "Premios de Armas",
 
-  awardPrefix: "The",
-  awardedTo: "award goes to",
+  awardPrefix: "El",
+  awardedTo: "premio es para",
 
-  for: "for",
-  frags: "frags",
+  for: "por sus",
+  frags: "asesinatos",
 
-  terminatorAwardName: "The Terminator",
-  terminatorAwardDescription: "for highest KDR",
+  terminatorAwardName: "Exterminador",
+  terminatorAwardDescription: "por el mayor ADR",
 
-  slaughterhouseAwardName: "The Slaughterhouse",
-  slaguhterHouseAwardDescription: "for most kills",
+  slaughterhouseAwardName: "Matadero",
+  slaguhterHouseAwardDescription: "por el mayor número de asesinatos",
 
-  slaughterhouselamaAwardName: "Slaughterhouse Lama",
-  slaughterhouselamaAwardDescription: "for most deaths",
+  slaughterhouselamaAwardName: "Llama del Matadero",
+  slaughterhouselamaAwardDescription: "por el mayor número de muertes",
 
-  slyfoxAwardName: "Sly Fox",
-  slyfoxAwardDescription: "for least deaths",
+  slyfoxAwardName: "Intocable",
+  slyfoxAwardDescription: "por el menor número de muertes",
 
   harakiriAwardName: "Harakiri",
-  harakiriAwardDescription: "for most suicides",
+  harakiriAwardDescription: "por mayoría de suicidios",
 
-  desecratorAwardName: "Desecrator of corpses",
-  desecratorAwardDescription: "for most gibs",
+  desecratorAwardName: "Profanador de cuerpos",
+  desecratorAwardDescription: "por mayor cantidad de entrañas",
 
   aimbotAwardName: "Aimbot",
-  aimbotAwardDescription: "for most headshots",
+  aimbotAwardDescription: "por el mayor número de disparos a la cabeza",
 
-  crosshairconnoisseurAwardName: "Crosshair Connoisseur",
-  crosshairconnoisseurAwardDescription: "for best accuracy",
+  crosshairconnoisseurAwardName: "Puntería",
+  crosshairconnoisseurAwardDescription: "por la mejor precisión",
 
   baiterAwardName: "Baiter",
-  baiterAwardDescription: "for baiting teammates",
+  baiterAwardDescription: "por baitear a sus compañeros de equipo",
 
-  mp40AwardName: "Master of MP-40",
-  thompsonAwardName: "King of Thompson",
-  panzerAwardName: "Panzer-Lama",
-  sharpshooterAwardName: "Sharp-Shooter",
-  grenadeAwardName: "Master of grenade",
-  smokerAwardName: "Best smoker",
-  godOfWarAwardName: "God of war",
-  pistolAwardName: "John Wayne is Lama",
+  mp40AwardName: "Maestro MP-40",
+  thompsonAwardName: "Rey Thompson",
+  panzerAwardName: "Imán del Panzer",
+  sharpshooterAwardName: "Tirador de Primera",
+  grenadeAwardName: "Maestro de la Granada",
+  smokerAwardName: "Fumeta",
+  godOfWarAwardName: "Dios de Guerra",
+  pistolAwardName: "Pistolero",
 };
