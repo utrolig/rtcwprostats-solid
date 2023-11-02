@@ -26,8 +26,8 @@ export const es_dict: InternationalizationDictionary = {
   mainAwards: "Premios Principales",
   weaponAwards: "Premios de Armas",
 
-  awardPrefix: "El",
-  awardedTo: "premio es para",
+  awardPrefix: "El premio",
+  awardedTo: "es para",
 
   for: "por sus",
   frags: "asesinatos",
