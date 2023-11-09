@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.firstMap {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.twoMaps .firstMap,
+.twoMaps .secondMap {
+  position: absolute;
+  width: 66%; /* Set the width to 100% to ensure they fill the container */
+  height: 100%; /* Set the height to 100% to ensure they fill the container */
+  top: 0;
+  object-fit: cover;
+}
+
+.twoMaps .secondMap {
+  left: 43.8%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.65);
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}

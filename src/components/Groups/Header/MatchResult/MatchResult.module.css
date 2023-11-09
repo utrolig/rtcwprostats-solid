@@ -1,0 +1,47 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 10;
+}
+
+.logo {
+  height: 40px;
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+}
+
+.result {
+  align-items: center;
+  display: flex;
+  font-size: 36px;
+  gap: 6px;
+  font-weight: bold;
+}
+
+.result * {
+  margin: 0;
+}
+
+.maps {
+  display: flex;
+  gap: 4px;
+}
+
+.manyMaps {
+  align-items: center;
+  margin-top: 18px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.winner {
+  color: #37773a;
+}
+
+.draw {
+  color: #ee9644;
+}

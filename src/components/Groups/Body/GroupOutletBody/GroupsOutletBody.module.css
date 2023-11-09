@@ -1,0 +1,8 @@
+.body {
+  background-color: var(--slate-0);
+  border-top: 2px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
+  width: 100%;
+}

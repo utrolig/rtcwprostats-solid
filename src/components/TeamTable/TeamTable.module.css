@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 12px 0 24px;
+}
+
+.factionImage {
+  height: 18px;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-left: 12px;
+}
+
+.header p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.combineStats {
+  cursor: pointer;
+  gap: 8px;
+  display: flex;
+  margin-left: auto;
+}
+
+.combineStats label {
+  color: var(--slate-8);
+  cursor: pointer;
+}

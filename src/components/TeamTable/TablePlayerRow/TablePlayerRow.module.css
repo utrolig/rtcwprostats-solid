@@ -1,0 +1,184 @@
+@keyframes slideDown {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--kb-collapsible-content-height);
+  }
+}
+@keyframes slideUp {
+  from {
+    height: var(--kb-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.collapsibleRoot {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.collapsible {
+  all: unset;
+  display: flex;
+  width: 100%;
+}
+
+.collapsibleContent {
+  overflow: hidden;
+  animation: slideUp 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.collapsibleContent[data-expanded] {
+  animation: slideDown 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.row {
+  align-items: center;
+  background-color: var(--slate-1);
+  display: flex;
+  flex: 1;
+  gap: 24px;
+  padding: 0 12px;
+  user-select: none;
+}
+
+.row:not(.header):hover {
+  background-color: var(--slate-4);
+  cursor: pointer;
+}
+
+.rows:not(.header).odd:hover {
+  background-color: var(--slate-4);
+}
+
+.row.odd {
+  background-color: var(--slate-2);
+}
+
+.classIcon {
+  height: 24px;
+  width: 24px;
+}
+
+.cell {
+  display: flex;
+  padding: 6px 0;
+}
+
+.cell.name {
+  align-items: center;
+  flex: 1;
+  gap: 12px;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.nameContainer h4 {
+  font-size: 14px;
+  margin: 0;
+  text-shadow: 2px 2px 0px #000;
+}
+
+.nameContainer .rank {
+  display: flex;
+  gap: 4px;
+}
+
+.nameContainer .rank span {
+  color: var(--slate-8);
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.header {
+  background-color: var(--slate-0);
+}
+
+.header .cell.cell.name {
+  padding-left: 36px;
+}
+
+.header .cell.cell {
+  align-items: center;
+  cursor: pointer;
+  gap: 4px;
+  color: var(--slate-8);
+  display: flex;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.cell.number {
+  color: rgba(255, 255, 255, 0.8);
+  justify-content: flex-end;
+  font-size: 15px;
+}
+
+.cell.kdr {
+  justify-content: flex-end;
+  width: 40px;
+}
+
+.cell.kills {
+  justify-content: flex-end;
+  width: 40px;
+}
+
+.cell.deaths {
+  justify-content: flex-end;
+  width: 60px;
+}
+
+.cell.add {
+  justify-content: flex-end;
+  width: 40px;
+}
+
+.cell.damageDone {
+  justify-content: flex-end;
+  width: 100px;
+}
+
+.cell.damageReceived {
+  justify-content: flex-end;
+  width: 110px;
+}
+
+.cell.revives {
+  justify-content: flex-end;
+  width: 60px;
+}
+
+.cell.gibs {
+  justify-content: flex-end;
+  width: 40px;
+}
+
+.cell.accuracy {
+  justify-content: flex-end;
+  width: 80px;
+}
+
+.cell.headshots {
+  justify-content: flex-end;
+  width: 80px;
+}
+
+.green.green.green {
+  color: var(--success);
+}
+
+.red.red.red {
+  color: var(--error);
+}
+
+.percentSign {
+  color: var(--slate-9);
+}
