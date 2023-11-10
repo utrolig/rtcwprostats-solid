@@ -39,6 +39,9 @@ export const en_dict = {
   slaughterhouselamaAwardName: "Slaughterhouse Lama",
   slaughterhouselamaAwardDescription: "for most deaths",
 
+  silentKillerAwardName: "Silent Killer",
+  silentKillerAwardDescription: "for most knife kills",
+
   slyfoxAwardName: "Sly Fox",
   slyfoxAwardDescription: "for least deaths",
 

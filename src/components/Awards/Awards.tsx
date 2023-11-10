@@ -51,6 +51,8 @@ export const Awards = (props: AwardsProps) => {
         return t("slyfoxAwardName");
       case "Terminator":
         return t("terminatorAwardName");
+      case "Silent killer":
+        return t("silentKillerAwardName");
     }
   };
 
@@ -76,6 +78,8 @@ export const Awards = (props: AwardsProps) => {
         return t("slyfoxAwardDescription");
       case "Terminator":
         return t("terminatorAwardDescription");
+      case "Silent killer":
+        return t("silentKillerAwardDescription");
     }
   };
 
