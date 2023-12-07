@@ -1,13 +1,14 @@
-import { Classes, Elos, Faction, GameClass } from "~/api/types";
+import { Elos, Faction, GameClass } from "~/api/types";
 import styles from "./TablePlayerRow.module.css";
 import { MatchStatPlayerStat } from "~/utils/teams";
 import { eloToRank, rankColors } from "~/utils/elo";
-import { Show, createSignal } from "solid-js";
+import { For, Show, createSignal } from "solid-js";
 import { classIcons } from "~/assets/classIcons";
 import { getAccuracy, getAdd, getElo, getKdr } from "~/utils/utils";
 import { TablePlayerWeaponStats } from "./TablePlayerWeaponStats";
 import { Collapsible } from "@kobalte/core";
 import { factionImages } from "~/assets/factionImages";
+import { getColoredNameParts } from "~/utils/colors";
 
 type TablePlayerRowProps = {
   player: MatchStatPlayerStat;
@@ -39,7 +40,20 @@ export const TablePlayerRow = (props: TablePlayerRowProps) => {
             </Show>
             <div class={styles.nameContainer}>
               <h4>
-                <span>{props.player.alias}</span>
+                <Show
+                  keyed
+                  when={props.player.alias_colored}
+                  fallback={<span>{props.player.alias}</span>}
+                >
+                  {(coloredAlias) => (
+                    <For each={getColoredNameParts(coloredAlias)}>
+                      {(part) => (
+                        <span style={{ color: part.color }}>{part.text}</span>
+                      )}
+                    </For>
+                  )}
+                </Show>
+
                 <Show when={props.faction} keyed>
                   {(faction) => (
                     <img

@@ -28,6 +28,7 @@ export type Weapon =
   | "Mauser";
 
 export type PlayerStats = {
+  alias_colored: string;
   alias: string;
   team: Team;
   start_time: number;
