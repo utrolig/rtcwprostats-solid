@@ -30,11 +30,13 @@ export const GameAwards = {
 export type Award = {
   name: (typeof GameAwards)[keyof typeof GameAwards];
   winner: {
+    coloredName: string;
     name: string;
     value: number | string;
   };
 
   all: {
+    coloredName: string;
     name: string;
     value: number | string;
   }[];
@@ -55,10 +57,24 @@ const getPlayerNameById = (playerId: string, match: MatchStatsResponse) => {
   return "";
 };
 
+const getColoredPlayerNameById = (
+  playerId: string,
+  match: MatchStatsResponse,
+) => {
+  for (const statRow of match.statsall) {
+    const [currentPlayerId] = Object.keys(statRow);
+    if (playerId === currentPlayerId) {
+      return statRow[playerId].alias_colored;
+    }
+  }
+
+  return "";
+};
+
 const getWeaponAward = (
   name: (typeof GameAwards)[keyof typeof GameAwards],
   weapon: Weapon | Weapon[],
-  groups: MatchStatsResponse
+  groups: MatchStatsResponse,
 ) => {
   const award = groups.wstatsall.reduce(
     (acc, player, idx, arr) => {
@@ -74,9 +90,14 @@ const getWeaponAward = (
         : getCountForWeapon(weapon);
 
       const playerName = getPlayerNameById(playerId, groups);
+      const coloredPlayerName = getColoredPlayerNameById(playerId, groups);
 
       if (value && playerName) {
-        acc.all.push({ value, name: playerName });
+        acc.all.push({
+          value,
+          name: playerName,
+          coloredName: coloredPlayerName,
+        });
       }
 
       if (idx === arr.length - 1) {
@@ -89,9 +110,9 @@ const getWeaponAward = (
     {
       name,
       all: [],
-      winner: { value: 0, name: "" },
+      winner: { value: 0, name: "", coloredName: "" },
       weapon,
-    } as WeaponAward
+    } as WeaponAward,
   );
 
   if (!award.winner) {
@@ -110,7 +131,7 @@ export const getWeaponAwards = (match: MatchStatsResponse) => {
   const indianSmokeMessenger = getWeaponAward(
     GameAwards.Smoker,
     "Airstrike",
-    match
+    match,
   );
   const godOfWar = getWeaponAward("God of war", "Artillery", match);
   const silentKiller = getWeaponAward("Silent killer", "Knife", match);
@@ -131,12 +152,13 @@ export const getWeaponAwards = (match: MatchStatsResponse) => {
 
 const getTerminatorAward = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const all = players
     .map((player) => ({
       count: getKdr(player),
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => b.count - a.count)
     .map((player) => ({ ...player, value: player.count.toFixed(2) }));
@@ -150,12 +172,13 @@ const getTerminatorAward = (
 
 const getSlaughterhouseAward = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.kills,
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => b.value - a.value);
 
@@ -170,12 +193,13 @@ const getSlaughterhouseAward = (
 
 const getSlaughterhouseLamaAward = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.deaths,
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => b.value - a.value);
 
@@ -190,12 +214,13 @@ const getSlaughterhouseLamaAward = (
 
 const getSlyFoxAward = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.deaths,
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => a.value - b.value);
   const winner = all[0];
@@ -209,12 +234,13 @@ const getSlyFoxAward = (
 
 const getHarakiriAward = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.suicides,
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => b.value - a.value);
   const winner = all[0];
@@ -227,12 +253,13 @@ const getHarakiriAward = (
 
 const getDesecratorAward = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.gibs,
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => b.value - a.value);
   const winner = all[0];
@@ -246,12 +273,13 @@ const getDesecratorAward = (
 
 const getAimbotAward = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const all = players
     .map((player) => ({
       value: player.categories.headshots,
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => b.value - a.value);
   const winner = all[0];
@@ -265,7 +293,7 @@ const getAimbotAward = (
 
 const getCrosshairConnoisseur = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award => {
   const isNotPanzerPlayer = (player: MatchStatPlayerStat) => {
     const panz = player.weaponStats.find((w) => w.weapon === "Panzer");
@@ -281,6 +309,7 @@ const getCrosshairConnoisseur = (
     .map((player) => ({
       value: getAccuracy(player),
       name: getPlayerNameById(player.id, match),
+      coloredName: getColoredPlayerNameById(player.id, match),
     }))
     .sort((a, b) => b.value - a.value)
     .map((player) => ({ ...player, value: `${player.value.toFixed(1)}%` }));
@@ -295,11 +324,12 @@ const getCrosshairConnoisseur = (
 
 const getBaiter = (
   players: MatchStatPlayerStat[],
-  match: MatchStatsResponse
+  match: MatchStatsResponse,
 ): Award | undefined => {
   const all = players.filter(isBaiter).map((player) => ({
     value: ``,
     name: getPlayerNameById(player.id, match),
+    coloredName: getColoredPlayerNameById(player.id, match),
   }));
   const winner = all[0];
 
