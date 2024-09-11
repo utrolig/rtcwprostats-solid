@@ -16,6 +16,7 @@ import radar from "./radar.jpg?w=854&h=480&format=avif&imagetools";
 import sub from "./sub.jpg?w=854&h=480&format=avif&imagetools";
 import tram2 from "./tram2.jpg?w=854&h=480&format=avif&imagetools";
 import village from "./village.jpg?w=854&h=480&format=avif&imagetools";
+import cipher from "./cipher.jpg?w=854&h=480&format=avif&imagetools";
 
 const mapRecord: Record<string, string> = {
   adlernest,
@@ -25,6 +26,7 @@ const mapRecord: Record<string, string> = {
   bremen,
   bunker,
   chateau,
+  cipher,
   escape,
   frostafari,
   frostbite,
