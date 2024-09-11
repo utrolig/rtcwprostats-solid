@@ -4,6 +4,7 @@ import { For } from "solid-js";
 import { GameAwards, getAwards } from "~/utils/awards";
 import { Collapsible } from "@kobalte/core";
 import { useTranslation } from "~/i18n/context";
+import { getColoredNameParts } from "~/utils/colors";
 
 export type AwardsProps = {
   data: MatchStatsResponse;
@@ -14,7 +15,7 @@ export const Awards = (props: AwardsProps) => {
   const t = useTranslation();
 
   const getAwardName = (
-    awardName: (typeof GameAwards)[keyof typeof GameAwards]
+    awardName: (typeof GameAwards)[keyof typeof GameAwards],
   ) => {
     switch (awardName) {
       case "Aimbot":
@@ -57,7 +58,7 @@ export const Awards = (props: AwardsProps) => {
   };
 
   const getAwardDescription = (
-    awardName: (typeof GameAwards)[keyof typeof GameAwards]
+    awardName: (typeof GameAwards)[keyof typeof GameAwards],
   ) => {
     switch (awardName) {
       case "Aimbot":
@@ -101,7 +102,15 @@ export const Awards = (props: AwardsProps) => {
                         </span>{" "}
                         {t("awardedTo")}{" "}
                         <span class={styles.awardName}>
-                          {award.winner.name}
+                          <For
+                            each={getColoredNameParts(award.winner.coloredName)}
+                          >
+                            {(part) => (
+                              <span style={{ color: part.color }}>
+                                {part.text}
+                              </span>
+                            )}
+                          </For>
                         </span>{" "}
                         {getAwardDescription(award.name)}{" "}
                         <span class={styles.awardValue}>
@@ -115,7 +124,15 @@ export const Awards = (props: AwardsProps) => {
                       <For each={award.all}>
                         {(item) => (
                           <div class={styles.awardDetailItem}>
-                            <p class={styles.awardDetailName}>{item.name}</p>
+                            <p class={styles.awardDetailName}>
+                              <For each={getColoredNameParts(item.coloredName)}>
+                                {(part) => (
+                                  <span style={{ color: part.color }}>
+                                    {part.text}
+                                  </span>
+                                )}
+                              </For>
+                            </p>
                             <p class={styles.awardDetailCount}>{item.value}</p>
                           </div>
                         )}
@@ -144,7 +161,15 @@ export const Awards = (props: AwardsProps) => {
                         </span>{" "}
                         {t("awardedTo")}{" "}
                         <span class={styles.awardName}>
-                          {award.winner.name}
+                          <For
+                            each={getColoredNameParts(award.winner.coloredName)}
+                          >
+                            {(part) => (
+                              <span style={{ color: part.color }}>
+                                {part.text}
+                              </span>
+                            )}
+                          </For>
                         </span>{" "}
                         {t("for") + " "}
                         <span class={styles.awardValue}>
