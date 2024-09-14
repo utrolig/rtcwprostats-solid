@@ -5,6 +5,7 @@ import beach from "./beach.jpg?w=854&h=480&format=avif&imagetools";
 import bremen from "./bremen.jpg?w=854&h=480&format=avif&imagetools";
 import bunker from "./brewdog.jpg?w=854&h=480&format=avif&imagetools";
 import chateau from "./chateau.jpg?w=854&h=480&format=avif&imagetools";
+import delivery from "./delivery.jpg?w=854&h=480&format=avif&imagetools";
 import escape from "./escape.jpg?w=854&h=480&format=avif&imagetools";
 import frostafari from "./frostafari.jpg?w=854&h=480&format=avif&imagetools";
 import frostbite from "./frostbite.jpg?w=854&h=480&format=avif&imagetools";
@@ -27,6 +28,7 @@ const mapRecord: Record<string, string> = {
   bunker,
   chateau,
   cipher,
+  delivery,
   escape,
   frostafari,
   frostbite,
