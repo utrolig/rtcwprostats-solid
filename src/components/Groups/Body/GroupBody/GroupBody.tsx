@@ -1,4 +1,4 @@
-import { Show, createSignal } from "solid-js";
+import { Show, createSignal, createMemo } from "solid-js";
 import styles from "./GroupBody.module.css";
 import { Toggle } from "~/components/Toggle/Toggle";
 import { TeamTable } from "~/components/TeamTable/TeamTable";
@@ -55,6 +55,10 @@ export const GroupBody = (props: GroupBodyProps) => {
     return [...players].sort(byKeyAndDir);
   };
 
+  const axisPlayers = createMemo(() => getPlayers("Axis"));
+  const alliedPlayers = createMemo(() => getPlayers("Allied"));
+  const combinedPlayers = createMemo(() => getPlayers("both"));
+
   return (
     <>
       <div
@@ -71,7 +75,7 @@ export const GroupBody = (props: GroupBodyProps) => {
         />
         <Show when={combineStats()}>
           <TeamTable
-            players={getPlayers("both")}
+            players={combinedPlayers()}
             elos={props.data.elos}
             onSortClicked={onSortClicked}
             sortDir={sortDir()}
@@ -80,7 +84,7 @@ export const GroupBody = (props: GroupBodyProps) => {
         </Show>
         <Show when={!combineStats()}>
           <TeamTable
-            players={getPlayers("Allied")}
+            players={alliedPlayers()}
             sortKey={sortKey()}
             sortDir={sortDir()}
             onSortClicked={onSortClicked}
@@ -88,7 +92,7 @@ export const GroupBody = (props: GroupBodyProps) => {
             faction={"Allied"}
           />
           <TeamTable
-            players={getPlayers("Axis")}
+            players={axisPlayers()}
             sortKey={sortKey()}
             sortDir={sortDir()}
             onSortClicked={onSortClicked}
